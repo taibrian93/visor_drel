@@ -22,8 +22,8 @@ class CreateCollegesTable extends Migration
             $table->char('codigoModular', 10)->nullable();
             $table->text('nombreCentroEducativo')->nullable();
             $table->text('direccionCentroEducativo')->nullable();
-            $table->longText('x')->nullable();
             $table->longText('y')->nullable();
+            $table->longText('x')->nullable();
             $table->string('fuenteCoordenadaLocalEscolar')->nullable();
             $table->string('codigoNivelModalidad')->nullable();
             $table->string('codigoNivelDependencia')->nullable();

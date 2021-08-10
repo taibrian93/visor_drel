@@ -17,6 +17,8 @@
 @stop
 
 @section('content')
+    <x-card-success />
+
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-end">
             <a href="{{ route('department.create') }}" class="btn btn-success">

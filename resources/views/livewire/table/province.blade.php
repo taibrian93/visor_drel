@@ -29,22 +29,19 @@
                                 <td>{{ $province->descripcion }}</td>
                                 <td>{{ $province->codigoUbigeo }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('province.edit', $province)}}" class="btn bg-lightblue btn-sm">
+                                    {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('province.edit', $province)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
-                                            Editar
                                         </a>
                 
-                                        <a href="{{ route('province.show', $province)}}" class="btn bg-olive btn-sm">
+                                        {{-- <a href="{{ route('province.show', $province)}}" class="btn bg-olive btn-sm" title="Consultar">
                                             <i class="fas fa-eye"></i>
-                                            Consultar
-                                        </a>
+                                        </a> --}}
                 
-                                        <a href="#" class="btn btn-danger btn-sm delete" province="{{ $province->id }}">
+                                        <a href="#" class="btn btn-danger btn-sm delete" province="{{ $province->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
-                                            Eliminar
                                         </a>
-                                    </div>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>        
                         @endforeach

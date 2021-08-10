@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\PopulationCenter;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,9 @@ class PopulationCenterController extends Controller
      */
     public function create()
     {
-        
+        $districts = District::select('descripcion', 'codigoUbigeo')->orderBy('codigoUbigeo','asc')->pluck('descripcion','codigoUbigeo');
+        return view('dashboard.population_center.create')
+                ->with(['districts' => $districts]);
     }
 
     /**
@@ -38,7 +41,20 @@ class PopulationCenterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'codigoUbigeoDistrito' => 'required',
+            'codigoCentroPobladoMINEDU' => 'required',
+            'x' => 'required',
+            'y' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        PopulationCenter::create($request->all());
+        return redirect()
+                ->route('populationCenter.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -60,7 +76,12 @@ class PopulationCenterController extends Controller
      */
     public function edit(PopulationCenter $populationCenter)
     {
-        //
+        $districts = District::select('descripcion', 'codigoUbigeo')->orderBy('codigoUbigeo','asc')->pluck('descripcion','codigoUbigeo');
+        return view('dashboard.population_center.edit')
+                ->with([
+                    'districts' => $districts,
+                    'populationCenter' => $populationCenter,
+                ]);
     }
 
     /**
@@ -72,7 +93,20 @@ class PopulationCenterController extends Controller
      */
     public function update(Request $request, PopulationCenter $populationCenter)
     {
-        //
+        $request->validate([
+            'codigoUbigeoDistrito' => 'required',
+            'codigoCentroPobladoMINEDU' => 'required',
+            'x' => 'required',
+            'y' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $populationCenter->update($request->all());
+        return redirect()
+                ->route('populationCenter.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

@@ -6,8 +6,13 @@ use App\Http\Controllers\Dashboard\DistrictController;
 use App\Http\Controllers\Dashboard\PopulaTionCenterController;
 use App\Http\Controllers\Dashboard\ProvinceController;
 use App\Http\Controllers\Dashboard\CollegeController;
+use App\Http\Controllers\Dashboard\ConveyanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\RouteController;
+use App\Http\Controllers\Dashboard\TrajectorieController;
+use App\Http\Controllers\Dashboard\TypeTransportationController;
 use App\Http\Controllers\Dashboard\VisorController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +46,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboa
     Route::resource('populationCenter', PopulaTionCenterController::class);
 
     Route::resource('college', CollegeController::class);
+
+    Route::resource('conveyance', ConveyanceController::class);
+    Route::resource('typeTransportation', TypeTransportationController::class);
+
+    Route::resource('route', RouteController::class);
+    Route::resource('trajectorie', TrajectorieController::class);
     
     Route::post('getColleges', [VisorController::class, 'getColleges']);
     Route::post('populationCenters', [VisorController::class, 'populationCenters']); 

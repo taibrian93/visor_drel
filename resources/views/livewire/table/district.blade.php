@@ -29,22 +29,19 @@
                                 <td>{{ $district->descripcion }}</td>
                                 <td>{{ $district->codigoUbigeo }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('district.edit', $district)}}" class="btn bg-lightblue btn-sm">
+                                    {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('district.edit', $district)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
-                                            Editar
                                         </a>
                 
-                                        <a href="{{ route('district.show', $district)}}" class="btn bg-olive btn-sm">
+                                        {{-- <a href="{{ route('district.show', $district)}}" class="btn bg-olive btn-sm" title="Consultar">
                                             <i class="fas fa-eye"></i>
-                                            Consultar
-                                        </a>
+                                        </a> --}}
                 
-                                        <a href="#" class="btn btn-danger btn-sm delete" district="{{ $district->id }}">
+                                        <a href="#" class="btn btn-danger btn-sm delete" district="{{ $district->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
-                                            Eliminar
                                         </a>
-                                    </div>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>        
                         @endforeach

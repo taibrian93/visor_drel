@@ -31,22 +31,17 @@
                                 <td>{{ $college->codigoLocal }}</td>
                                 <td>{{ $college->codigoModular }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('college.edit', $college)}}" class="btn bg-lightblue btn-sm">
+                                    {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('college.edit', $college)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
-                                            Editar
                                         </a>
-                
-                                        <a href="{{ route('college.show', $college)}}" class="btn bg-olive btn-sm">
+                                        {{-- <a href="{{ route('college.show', $college)}}" class="btn bg-olive btn-sm" title="Consultar">
                                             <i class="fas fa-eye"></i>
-                                            Consultar
-                                        </a>
-                
-                                        <a href="#" class="btn btn-danger btn-sm delete" college="{{ $college->id }}">
+                                        </a> --}}
+                                        <a href="#" class="btn btn-danger btn-sm delete" college="{{ $college->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
-                                            Eliminar
                                         </a>
-                                    </div>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>        
                         @endforeach

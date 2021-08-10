@@ -25,8 +25,8 @@ class CreatePopulationCentersTable extends Migration
             $table->char('cpinei',10)->nullable();
             $table->string('fuente_ine')->nullable();
             $table->string('fuente_g')->nullable();
-            $table->longText('x')->nullable();
             $table->longText('y')->nullable();
+            $table->longText('x')->nullable();
             $table->string('departmento')->nullable();
             $table->string('provincia')->nullable();
             $table->string('distrito')->nullable();

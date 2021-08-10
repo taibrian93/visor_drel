@@ -17,6 +17,9 @@
 @stop
 
 @section('content')
+    <x-card-success>
+        
+    </x-card-success>
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-end">
             <a href="{{ route('college.create') }}" class="btn btn-success">
@@ -34,9 +37,5 @@
 @stop
 
 @section('js')
-    <script>
-        
-
-        
-    </script>
+    <script src="{{ asset('js/college.js') }}"></script>
 @stop

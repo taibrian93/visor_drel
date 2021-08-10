@@ -1,11 +1,11 @@
 <div class="form-group">
     {!! Form::label('codigoCentroPobladoMINEDU', 'Centro Poblado: ') !!}
-    {!! Form::select('codigoCentroPobladoMINEDU',$populationCenters, null, ['class' => 'form-control select2 populationCenter', 'placeholder' => 'Seleccione Centro Poblado...']) !!}
+    {!! Form::select('codigoCentroPobladoMINEDU',$populationCenters, null, ['class' => 'form-control populationCenter', 'placeholder' => 'Seleccione Centro Poblado...', 'style' => 'width: 100%;']) !!}
     
     @error('codigoCentroPobladoMINEDU')
-        <span class="invalid-feedback">
+        <small class="text-danger">
             <strong>{{ $message }}</strong>
-        </span>    
+        </small>    
     @enderror
 </div>
 
@@ -50,9 +50,19 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('direccionCentroEducativo', 'Nombre Centro Eductivo ') !!}
-    {!! Form::text('direccionCentroEducativo', null, ['class' => 'form-control' . ($errors->has('direccionCentroEducativo') ? ' is-invalid' : ''), 'placeholder' => 'Nombre Centro Eductivo']) !!}
+    {!! Form::label('direccionCentroEducativo', 'Direccion Centro Educativo ') !!}
+    {!! Form::text('direccionCentroEducativo', null, ['class' => 'form-control' . ($errors->has('direccionCentroEducativo') ? ' is-invalid' : ''), 'placeholder' => 'Direccion Centro Educativo']) !!}
     @error('direccionCentroEducativo')
+        <span class="invalid-feedback">
+            <strong>{{ $message }}</strong>
+        </span>    
+    @enderror
+</div>
+
+<div class="form-group">
+    {!! Form::label('y', 'Longitud ') !!}
+    {!! Form::text('y', null, ['class' => 'form-control' . ($errors->has('y') ? ' is-invalid' : ''), 'placeholder' => 'Longitud']) !!}
+    @error('y')
         <span class="invalid-feedback">
             <strong>{{ $message }}</strong>
         </span>    
@@ -70,11 +80,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('y', 'Longitud ') !!}
-    {!! Form::text('y', null, ['class' => 'form-control' . ($errors->has('y') ? ' is-invalid' : ''), 'placeholder' => 'Longitud']) !!}
-    @error('y')
-        <span class="invalid-feedback">
-            <strong>{{ $message }}</strong>
-        </span>    
-    @enderror
+    {!! Form::label('name', 'Estado: ') !!}
+    {!! Form::select('estado', [1 => 'Disponible', 0 => 'No Disponible'], null, ['class' => 'form-control']) !!}
+    
 </div>

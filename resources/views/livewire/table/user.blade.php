@@ -29,24 +29,21 @@
                                 <td>{{ (($page-1)*10)+($key+1) }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('user.edit', $user)}}" class="btn bg-lightblue btn-sm">
+                                    {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('user.edit', $user)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
-                                            Editar
                                         </a>
                 
-                                        <a href="{{ route('user.show', $user)}}" class="btn bg-olive btn-sm">
+                                        {{-- <a href="{{ route('user.show', $user)}}" class="btn bg-olive btn-sm" title="Consultar">
                                             <i class="fas fa-eye"></i>
-                                            Consultar
-                                        </a>
+                                        </a> --}}
                 
-                                        <a href="#" class="btn btn-danger btn-sm delete" user="{{ $user->id }}">
+                                        <a href="#" class="btn btn-danger btn-sm delete" user="{{ $user->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
-                                            Eliminar
                                         </a>
-                                    </div>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>        
                         @endforeach

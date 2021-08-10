@@ -78,6 +78,7 @@ class Table extends Component
                 $colleges = $this->model::where('nombreCentroEducativo', 'LIKE', '%'. $this->search .'%')
                                 ->orWhere('codigoLocal', 'LIKE', '%'. $this->search .'%')
                                 ->orWhere('codigoModular', 'LIKE', '%'. $this->search .'%')
+                                ->orderBy('id','desc')
                                 ->paginate(10);
             
                 return [
@@ -85,6 +86,52 @@ class Table extends Component
                     'colleges' => $colleges,
                 ];
             break;
+
+            case 'conveyance':
+                $conveyances = $this->model::where('descripcion', 'LIKE', '%'. $this->search .'%')
+                                ->orderBy('id','desc')
+                                ->paginate(10);
+            
+                return [
+                    'view' => 'livewire.table.conveyance',
+                    'conveyances' => $conveyances,
+                ];
+            break;
+
+            case 'typeTransportation':
+                $typeTransportations = $this->model::where('descripcion', 'LIKE', '%'. $this->search .'%')
+                                ->orderBy('id','desc')
+                                ->paginate(10);
+            
+                return [
+                    'view' => 'livewire.table.typeTransportation',
+                    'typeTransportations' => $typeTransportations,
+                ];
+            break;
+
+            case 'route':
+                $routes = $this->model::where('descripcion', 'LIKE', '%'. $this->search .'%')
+                                ->orderBy('id','desc')
+                                ->paginate(10);
+            
+                return [
+                    'view' => 'livewire.table.route',
+                    'routes' => $routes,
+                ];
+            break;
+
+            case 'trajectorie':
+                $trajectories = $this->model::where('descripcion', 'LIKE', '%'. $this->search .'%')
+                                ->orderBy('id','desc')
+                                ->paginate(10);
+            
+                return [
+                    'view' => 'livewire.table.trajectorie',
+                    'trajectories' => $trajectories,
+                ];
+            break;
+
+            
 
             default:
                 # code...

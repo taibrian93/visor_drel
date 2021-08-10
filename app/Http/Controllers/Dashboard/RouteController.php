@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\College;
 use App\Models\Route;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class RouteController extends Controller
      */
     public function index()
     {
-        //
+        $route = Route::class;
+        return view('dashboard.route.index')
+                ->with(['route' => $route]);
     }
 
     /**
@@ -25,7 +28,9 @@ class RouteController extends Controller
      */
     public function create()
     {
-        //
+        $colleges = College::select('id', 'nombreCentroEducativo')->orderBy('id','asc')->pluck('nombreCentroEducativo','id');
+        return view('dashboard.route.create')
+                ->with(['colleges' => $colleges]);
     }
 
     /**
@@ -36,7 +41,17 @@ class RouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idCollege' => 'required',
+            'descripcion' => 'required|max:200',
+        ]);
+
+        Route::create($request->all());
+        return redirect()
+                ->route('route.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -58,7 +73,12 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
-        //
+        $colleges = College::select('id', 'nombreCentroEducativo')->orderBy('id','asc')->pluck('nombreCentroEducativo','id');
+        return view('dashboard.route.edit')
+                ->with([
+                    'route' => $route,
+                    'colleges' => $colleges
+                ]);
     }
 
     /**
@@ -70,7 +90,17 @@ class RouteController extends Controller
      */
     public function update(Request $request, Route $route)
     {
-        //
+        $request->validate([
+            'idCollege' => 'required',
+            'descripcion' => 'required|max:200',
+        ]);
+
+        $route->update($request->all());
+        return redirect()
+                ->route('route.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

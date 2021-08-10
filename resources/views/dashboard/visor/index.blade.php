@@ -362,7 +362,7 @@
                         if(results){
                             for (let i = 0; i < results.length; i++) {
                                 for (let j = 0; j < results[i].length; j++) {
-                                    L.marker([results[i][j]['y'], results[i][j]['x']],{icon: img}).bindPopup(`<b>${pM[0]}</b>: ${results[i][j]['message1']}<br><b>${pM[1]}</b>: ${results[i][j]['message2']}<br><b>${pM[2]}</b>: ${results[i][j]['message3']}<br><b>${pM[3]}</b>: ${results[i][j]['message4']}<br><b>${pM[4]}</b>: ${results[i][j]['message5']}<br>`).addTo(layerGroup);
+                                    L.marker([results[i][j]['x'], results[i][j]['y']],{icon: img}).bindPopup(`<b>${pM[0]}</b>: ${results[i][j]['message1']}<br><b>${pM[1]}</b>: ${results[i][j]['message2']}<br><b>${pM[2]}</b>: ${results[i][j]['message3']}<br><b>${pM[3]}</b>: ${results[i][j]['message4']}<br><b>${pM[4]}</b>: ${results[i][j]['message5']}<br>`).addTo(layerGroup);
                                 }
                             }
                             layerGroup.addTo(map);

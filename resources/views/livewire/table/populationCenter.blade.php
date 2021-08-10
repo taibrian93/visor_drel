@@ -31,22 +31,19 @@
                                 <td>{{ $populationCenter->codigoCentroPobladoMINEDU }}</td>
                                 <td>{{ $populationCenter->cpinei }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('populationCenter.edit', $populationCenter)}}" class="btn bg-lightblue btn-sm">
+                                    {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('populationCenter.edit', $populationCenter)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
-                                            Editar
                                         </a>
                 
-                                        <a href="{{ route('populationCenter.show', $populationCenter)}}" class="btn bg-olive btn-sm">
+                                        {{-- <a href="{{ route('populationCenter.show', $populationCenter)}}" class="btn bg-olive btn-sm" title="Consultar">
                                             <i class="fas fa-eye"></i>
-                                            Consultar
-                                        </a>
+                                        </a> --}}
                 
-                                        <a href="#" class="btn btn-danger btn-sm delete" populationCenter="{{ $populationCenter->id }}">
+                                        <a href="#" class="btn btn-danger btn-sm delete" populationCenter="{{ $populationCenter->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
-                                            Eliminar
                                         </a>
-                                    </div>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>        
                         @endforeach

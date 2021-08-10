@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\District;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
@@ -27,7 +28,9 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        //
+        $provinces = Province::select('id', 'descripcion')->orderBy('codigoUbigeo','asc')->pluck('descripcion','id');
+        return view('dashboard.district.create')
+                ->with(['provinces' => $provinces]);
     }
 
     /**
@@ -38,7 +41,18 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idProvince' => 'required',
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{6}$/',
+        ]);
+
+        District::create($request->all());
+        return redirect()
+                ->route('district.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -49,7 +63,7 @@ class DistrictController extends Controller
      */
     public function show(District $district)
     {
-        //
+        
     }
 
     /**
@@ -60,7 +74,12 @@ class DistrictController extends Controller
      */
     public function edit(District $district)
     {
-        //
+        $provinces = Province::select('id', 'descripcion')->orderBy('codigoUbigeo','asc')->pluck('descripcion','id');
+        return view('dashboard.district.edit')
+                ->with([
+                    'provinces' => $provinces,
+                    'district' => $district,
+                ]);
     }
 
     /**
@@ -72,7 +91,18 @@ class DistrictController extends Controller
      */
     public function update(Request $request, District $district)
     {
-        //
+        $request->validate([
+            'idProvince' => 'required',
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{6}$/',
+        ]);
+
+        $district->update($request->all());
+        return redirect()
+                ->route('district.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

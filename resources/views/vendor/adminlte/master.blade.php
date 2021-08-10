@@ -33,14 +33,13 @@
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     @else
+        @include('adminlte::plugins', ['type' => 'css'])
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
+        
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     @endif
 
     {{-- Livewire Styles --}}
@@ -79,6 +78,15 @@
     @endif
 
     <style>
+        @media screen and ( max-width: 520px ){
+
+            li.page-item:not(:nth-child(1),:nth-child(2),.page-item.active,.page-item.disabled,:nth-last-child(1),:nth-last-child(2),.page-item.active + .page-item) {
+
+                display: none;
+            }
+
+        }
+
         .pagination {
             margin: 0;
         }
@@ -104,10 +112,14 @@
 
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     @else
+        
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}" defer></script>
+        
         <script src="{{ mix('js/dashboard.js')}}"></script>
-        {{-- <script src="http://127.0.0.1:8000/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script> --}}
-        {{-- <script src="http://127.0.0.1:8000/vendor/adminlte/dist/js/adminlte.min.js" defer></script> --}}
+
+        @include('adminlte::plugins', ['type' => 'js'])
+        
+
     @endif
 
     {{-- Livewire Script --}}

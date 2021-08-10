@@ -27,7 +27,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.department.create');
     }
 
     /**
@@ -38,7 +38,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{2}$/',
+        ]);
+
+        Department::create($request->all());
+        return redirect()
+                ->route('department.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -60,7 +70,9 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('dashboard.department.edit')->with([
+            'department' => $department,
+        ]);
     }
 
     /**
@@ -72,7 +84,17 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $request->validate([
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{2}$/',
+        ]);
+
+        $department->update($request->all());
+        return redirect()
+                ->route('department.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

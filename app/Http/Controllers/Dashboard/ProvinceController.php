@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProvinceController extends Controller
 {
@@ -27,7 +29,9 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::select('id', 'descripcion')->orderBy('codigoUbigeo','asc')->pluck('descripcion','id');
+        return view('dashboard.province.create')
+                ->with(['departments' => $departments]);
     }
 
     /**
@@ -38,7 +42,18 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idDepartment' => 'required',
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{4}$/',
+        ]);
+
+        Province::create($request->all());
+        return redirect()
+                ->route('province.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -60,7 +75,12 @@ class ProvinceController extends Controller
      */
     public function edit(Province $province)
     {
-        //
+        $departments = Department::select('id', 'descripcion')->orderBy('codigoUbigeo','asc')->pluck('descripcion','id');
+        return view('dashboard.province.edit')
+                ->with([
+                    'departments' => $departments,
+                    'province' => $province,
+                ]);
     }
 
     /**
@@ -72,7 +92,18 @@ class ProvinceController extends Controller
      */
     public function update(Request $request, Province $province)
     {
-        //
+        $request->validate([
+            'idDepartment' => 'required',
+            'descripcion' => 'required|max:200',
+            'codigoUbigeo' => 'required|numeric|regex:/^[0-9]{4}$/',
+        ]);
+
+        $province->update($request->all());
+        return redirect()
+                ->route('province.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

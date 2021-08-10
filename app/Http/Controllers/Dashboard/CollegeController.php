@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\College;
 use App\Models\PopulationCenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CollegeController extends Controller
 {
@@ -28,7 +29,7 @@ class CollegeController extends Controller
      */
     public function create()
     {
-        $populationCenters = PopulationCenter::select('codigoCentroPobladoMINEDU','descripcion')->orderBy('codigoUbigeoDistrito','asc')->pluck('descripcion','codigoCentroPobladoMINEDU');
+        $populationCenters = PopulationCenter::select('codigoCentroPobladoMINEDU',DB::raw('CONCAT(descripcion, " - ", codigoCentroPobladoMINEDU) AS descripcion'))->orderBy('codigoUbigeoDistrito','asc')->pluck('descripcion','codigoCentroPobladoMINEDU');
         return view('dashboard.college.create')->with(['populationCenters' => $populationCenters]);
     }
 
@@ -40,7 +41,23 @@ class CollegeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'codigoCentroPobladoMINEDU' => 'required|numeric',
+            'codigoLocal' => 'required|regex:/^[0-9]*$/',
+            'codigoModular' => 'required|regex:/^[0-9]*$/',
+            'nombreCentroEducativo' => 'required|min:2|',
+            //'nombreDirector' => 'required|min:2',
+            'direccionCentroEducativo' => 'required|min:2',
+            'x' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'y' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+        ]);
+
+        College::create($request->all());
+        return redirect()
+                ->route('college.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -62,7 +79,7 @@ class CollegeController extends Controller
      */
     public function edit(College $college)
     {
-        $populationCenters = PopulationCenter::select('codigoCentroPobladoMINEDU','descripcion')->orderBy('codigoUbigeoDistrito','asc')->pluck('descripcion','codigoCentroPobladoMINEDU');
+        $populationCenters = PopulationCenter::select('codigoCentroPobladoMINEDU', DB::raw('CONCAT(descripcion, " - ", codigoCentroPobladoMINEDU) AS descripcion'))->orderBy('codigoUbigeoDistrito','asc')->pluck('descripcion','codigoCentroPobladoMINEDU');
         return view('dashboard.college.edit')->with([
             'college' => $college,
             'populationCenters' => $populationCenters,
@@ -78,7 +95,23 @@ class CollegeController extends Controller
      */
     public function update(Request $request, College $college)
     {
-        //
+        $request->validate([
+            'codigoCentroPobladoMINEDU' => 'required|numeric',
+            'codigoLocal' => 'required|regex:/^[0-9]*$/',
+            'codigoModular' => 'required|regex:/^[0-9]*$/',
+            'nombreCentroEducativo' => 'required|min:2|',
+            //'nombreDirector' => 'required|min:2',
+            'direccionCentroEducativo' => 'required|min:2',
+            'x' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'y' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+        ]);
+
+        $college->update($request->all());
+        return redirect()
+                ->route('college.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -87,8 +120,8 @@ class CollegeController extends Controller
      * @param  \App\Models\College  $college
      * @return \Illuminate\Http\Response
      */
-    public function destroy(College $college)
+    public function destroy($college)
     {
-        //
+        College::find($college)->delete();
     }
 }

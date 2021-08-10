@@ -50,9 +50,5 @@
 @stop
 
 @section('js')
-    <script>
-        
-        $('.populationCenter').select2();
-        
-    </script>
+    <script src="{{ asset('js/college.js') }}"></script>
 @stop

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PopulationCenter extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'codigoUbigeoDistrito',
+        'codigoCentroPobladoMINEDU',
+        'x',
+        'y',
+        'descripcion',
+        'estado',
+    ];
 }
