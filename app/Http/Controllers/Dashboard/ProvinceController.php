@@ -112,8 +112,8 @@ class ProvinceController extends Controller
      * @param  \App\Models\Province  $province
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Province $province)
+    public function destroy($province)
     {
-        //
+        Province::find($province)->delete();
     }
 }

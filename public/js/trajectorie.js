@@ -1,0 +1,2 @@
+$('.puntoLlegada').select2();
+

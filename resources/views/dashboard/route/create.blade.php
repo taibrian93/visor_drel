@@ -32,7 +32,7 @@
                         @include('dashboard.route.partials.form')
                     </div>
                     <div class="card-footer d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-route" disabled>
                             <i class="fas fa-save"></i>
                             Guardar
                         </button>
@@ -46,9 +46,21 @@
 @stop
 
 @section('css')
+<style>
+    /* .searchFilter {
+        width: 100%;
+    } */
 
+  
+
+</style>
 @stop
 
 @section('js')
     
+    <script src="{{ asset('js/route.js') }}"></script>
+
+    <script>
+        $('.select2 ').addClass('d-none');
+    </script>
 @stop

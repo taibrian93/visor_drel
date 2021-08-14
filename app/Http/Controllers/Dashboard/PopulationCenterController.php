@@ -115,8 +115,8 @@ class PopulationCenterController extends Controller
      * @param  \App\Models\PopulationCenter  $populationCenter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PopulationCenter $populationCenter)
+    public function destroy($populationCenter)
     {
-        //
+        PopulationCenter::find($populationCenter)->delete();
     }
 }

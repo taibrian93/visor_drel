@@ -223,7 +223,6 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-
     'menu' => [
         [
             'type'         => 'fullscreen-widget',
@@ -234,6 +233,7 @@ return [
             'url'         => '/dashboard',
             'icon'        => 'fas fa-home',
         ],
+        ['header' => 'VISOR'],
         [
             'text'        => ' Visor',
             'url'         => 'dashboard/visor',
@@ -314,11 +314,6 @@ return [
                     'text' => 'Ruta',
                     'route' => 'route.index',
                     'active'    => ['dashboard/routes*'],
-                ],
-                [
-                    'text' => 'Trayectoria',
-                    'route' => 'trajectorie.index',
-                    'active'    => ['dashboard/trajectorie*'],
                 ],
             ],
         ],

@@ -110,7 +110,12 @@ class Table extends Component
             break;
 
             case 'route':
-                $routes = $this->model::where('descripcion', 'LIKE', '%'. $this->search .'%')
+                $routes = $this->model::select('routes.*', 'colleges.codigoModular', 'colleges.nombreCentroEducativo')
+                                ->leftJoin('colleges', 'colleges.id', '=', 'routes.idCollege')
+                                ->where('routes.descripcion', 'LIKE', '%'. $this->search .'%')
+                                ->orWhere('colleges.codigoModular', 'LIKE', '%'. $this->search .'%')
+                                ->orWhere('colleges.codigoLocal', 'LIKE', '%'. $this->search .'%')
+                                ->orWhere('colleges.nombreCentroEducativo', 'LIKE', '%'. $this->search .'%')
                                 ->orderBy('id','desc')
                                 ->paginate(10);
             

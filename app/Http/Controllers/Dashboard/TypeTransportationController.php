@@ -108,8 +108,8 @@ class TypeTransportationController extends Controller
      * @param  \App\Models\TypeTransportation  $typeTransportation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TypeTransportation $typeTransportation)
+    public function destroy($typeTransportation)
     {
-        //
+        TypeTransportation::find($typeTransportation)->delete();
     }
 }

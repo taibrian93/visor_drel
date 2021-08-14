@@ -51,7 +51,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboa
     Route::resource('typeTransportation', TypeTransportationController::class);
 
     Route::resource('route', RouteController::class);
+    Route::get('route/{route}/trajectorie', [RouteController::class, 'trajectorie'])->name('route.trajectorie');
+    Route::post('route/getColleges', [RouteController::class, 'getColleges'])->name('route.getColleges');
+
     Route::resource('trajectorie', TrajectorieController::class);
+    //Route::post('trajectorie/create', [TrajectorieController::class, 'store'])->name('trajectorie.store');
     
     Route::post('getColleges', [VisorController::class, 'getColleges']);
     Route::post('populationCenters', [VisorController::class, 'populationCenters']); 

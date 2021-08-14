@@ -101,8 +101,8 @@ class ConveyanceController extends Controller
      * @param  \App\Models\Conveyance  $conveyance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Conveyance $conveyance)
+    public function destroy($conveyance)
     {
-        //
+        Conveyance::find($conveyance)->delete();
     }
 }

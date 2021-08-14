@@ -17,6 +17,7 @@
                         <tr>
                             <th>Nro.</th>
                             <th>Colegio</th>
+                            <th>Codigo Local</th>
                             <th>Codigo Modular</th>
                             <th>Ruta</th>
                             <th style="width: 15%"></th>
@@ -28,16 +29,19 @@
                             <tr>
                                 <td>{{ (($page-1)*10)+($key+1) }}</td>
                                 <td>{{ $route->college->nombreCentroEducativo }}</td>
+                                <td>{{ $route->college->codigoLocal }}</td>
                                 <td>{{ $route->college->codigoModular }}</td>
                                 <td>{{ $route->descripcion }}</td>
                                 <td>
                                     {{-- <div class="btn-group"> --}}
+                                        <a href="{{ route('route.trajectorie', $route)}}" class="btn bg-maroon btn-sm" title="Agregar Trayectoria">
+                                            <i class="fas fa-plus-square"></i>
+                                        </a>
+
                                         <a href="{{ route('route.edit', $route)}}" class="btn bg-lightblue btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        {{-- <a href="{{ route('route.show', $route)}}" class="btn bg-olive btn-sm" title="Consultar">
-                                            <i class="fas fa-eye"></i>
-                                        </a> --}}
+                                        
                                         <a href="#" class="btn btn-danger btn-sm delete" route="{{ $route->id }}" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>

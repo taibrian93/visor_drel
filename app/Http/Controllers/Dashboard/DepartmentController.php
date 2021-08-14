@@ -103,8 +103,8 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy($department)
     {
-        //
+        Department::find($department)->delete();
     }
 }

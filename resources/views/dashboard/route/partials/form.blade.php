@@ -1,12 +1,43 @@
 <div class="form-group">
-    {!! Form::label('idCollege', 'Colegio ') !!}
-    {!! Form::select('idCollege',$colleges, null, ['class' => 'form-control department', 'placeholder' => 'Seleccione Colegio...', 'style' => 'width:100%;']) !!}
+    <label for="">Bsucar Colegio </label>
+    <div class="input-group">
+        
+        <div class="input-group-prepend filtro">
+            <select class="form-control searchFilter">
+                <option value="1">Nombre Colegio</option>
+                <option value="2">Código Modular</option>
+                <option value="3">Código Local</option>
+            </select>
+        </div>
+
+        <input type="text" class="form-control searchInput" />
+
+        
+        
+        <div class="input-group-append btnFiltro">
+            <button class="btn btn-success searchCollege" type="button">Buscar</button>
+            <button class="btn btn-danger deleteResultSeacrh" type="button" title="Eliminar Busqueda" {{ !isset($route->id) ? 'disabled' : '' }}>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        @error('idCollege')
+            <small class="text-danger">
+                <strong>{{ $message }}</strong>
+            </small>   
+        @enderror
+    </div>
+</div>
     
-    @error('idCollege')
-        <small class="text-danger">
-            <strong>{{ $message }}</strong>
-        </small>   
-    @enderror
+
+<div class="form-group">
+    {!! Form::label('idCollege', 'Lista Colegios ') !!}
+    <select class="form-control selectResultCopy" disabled>
+        <option>Seleccione Colegio...</option>
+    </select>
+ 
+    {!! Form::select('idCollege', $colleges, null, ['class' => 'form-control selectResult ', 'placeholder' => 'Seleccione Colegio...', 'style' => 'width:100%;' ]) !!}
+    
 </div>
 
 <div class="form-group">

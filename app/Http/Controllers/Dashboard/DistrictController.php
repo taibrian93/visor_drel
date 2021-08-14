@@ -111,8 +111,8 @@ class DistrictController extends Controller
      * @param  \App\Models\District  $district
      * @return \Illuminate\Http\Response
      */
-    public function destroy(District $district)
+    public function destroy($district)
     {
-        //
+        District::find($district)->delete();
     }
 }

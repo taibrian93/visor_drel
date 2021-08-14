@@ -1,14 +1,33 @@
 <div class="form-group">
-    {!! Form::label('descripcion', 'Descripcion ') !!}
-    {!! Form::text('descripcion', null, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripcion']) !!}
-    @error('descripcion')
-        <span class="invalid-feedback">
+    {!! Form::label('puntoPartida', 'Punto Partida: ') !!}
+    {!! Form::select('puntoPartida',$puntoPartida, null, ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+    
+    @error('puntoPartida')
+        <small class="text-danger">
             <strong>{{ $message }}</strong>
-        </span>    
+        </small>    
+    @enderror
+</div>
+
+
+<div class="form-group">
+    {!! Form::label('puntoLlegada', 'Punto Llegada: ') !!}
+    {!! Form::select('puntoLlegada',$puntoLlegada, null, ['class' => 'form-control puntoLlegada', 'placeholder' => 'Seleccione Punto Llegada...', 'style' => 'width: 100%;']) !!}
+    
+    @error('puntoLlegada')
+        <small class="text-danger">
+            <strong>{{ $message }}</strong>
+        </small>    
     @enderror
 </div>
 
 <div class="form-group">
-    {!! Form::label('name', 'Estado: ') !!}
-    {!! Form::select('estado', [1 => 'Disponible', 0 => 'No Disponible'], null, ['class' => 'form-control']) !!}
+    {!! Form::label('puntoLlegada', 'Destino Final: ') !!}
+    {!! Form::select('puntoLlegada',$destinoFinal, null, ['class' => 'form-control', 'style' => 'width: 100%;', 'disabled' => '']) !!}
+    
+    @error('puntoLlegada')
+        <small class="text-danger">
+            <strong>{{ $message }}</strong>
+        </small>    
+    @enderror
 </div>

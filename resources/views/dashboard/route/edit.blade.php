@@ -34,7 +34,7 @@
                     <div class="card-footer d-flex justify-content-end">
                         
                         
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-route">
                             <i class="fas fa-edit"></i>
                             Editar
                         </button>
@@ -52,5 +52,10 @@
 @stop
 
 @section('js')
+    
     <script src="{{ asset('js/route.js') }}"></script>
+
+    <script>
+        $('.selectResultCopy ').addClass('d-none');
+    </script>
 @stop
