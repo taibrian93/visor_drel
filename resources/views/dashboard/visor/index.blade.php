@@ -273,7 +273,7 @@
                     },
                     success: function(results) {
                         console.log(results);
-                        //colleges.clearLayers();
+                        colleges.clearLayers();
                         if(results){
                             for (let i = 0; i < results.length; i++) {
                                 L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
