@@ -112,4 +112,9 @@ class TypeTransportationController extends Controller
     {
         TypeTransportation::find($typeTransportation)->delete();
     }
+
+    public function getTypeTransportation(Request $request){
+        $transportation = TypeTransportation::where('idConveyance',$request->data);
+        return response()->json($transportation->get());
+    }
 }

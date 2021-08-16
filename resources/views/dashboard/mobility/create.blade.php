@@ -5,13 +5,13 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">Trayectoria</h1>
+            <h1 class="m-0">Movilidad</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/dashboard"> Inicio</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('route.index') }}"> Ruta</a></li>
-                <li class="breadcrumb-item active"> Crear Trayectoria</li>
+                <li class="breadcrumb-item"><a href="{{ route('route.trajectorie', $trajectorie->route->id) }}"> Trayectoria</a></li>
+                <li class="breadcrumb-item active"> Crear Movilidad</li>
             </ol>
         </div>
     </div>
@@ -21,15 +21,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                {!! Form::open(['route' => ['trajectorie.store', 'idRoute' => $route->id] ]) !!}
+                {!! Form::open(['route' => ['mobility.store', 'idTrajectorie' => $trajectorie->id]]) !!}
                     <div class="card-header">
                         <h3 class="card-title">
-                            Crear Trayectoria - {{ $route->descripcion }}
+                            Crear Movilidad
                         </h3>
                     </div>
                     
                     <div class="card-body">
-                        @include('dashboard.trajectorie.partials.form')
+                        @include('dashboard.mobility.partials.form')
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">
@@ -43,7 +43,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Lista de Trayectorias
+                        Lista de Movilidad
                     </h3>
                 </div>
 
@@ -51,32 +51,28 @@
                     <x-table>
                         @slot('thead')
                             <tr>
-                                <th>Orden</th>
-                                <th>Provincia - Centro Poblado (PP*)</th>
-                                <th>Provincia - Centro Poblado (PL*)</th>
-                                <th>Distancia</th>
+                                <th>Nro</th>
+                                <th>Tipo Transporte</th>
+                                <th>Costo</th>
                                 <th></th>
                             </tr>
                         @endslot
 
                         @slot('tbody')
-                            @foreach ($trajectories as $key => $trajectorie)
+                            @foreach ($mobilities as $key => $mobility)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ Helper::getDescriptionPopulationCenter($trajectorie->puntoPartida) }}</td>
-                                    <td>{{ Helper::getDescriptionPopulationCenter($trajectorie->puntoLlegada) }}</td>
-                                    <td>{{ $trajectorie->distancia.' km' }}</td>
+                                    <td>{{ $mobility->typeTransportation->descripcion }}</td>
+                                    <td>S/. {{ $mobility->costo }}</td>
+                                    
                                     <td>
-                                        <a href="{{ route('trajectorie.mobility', $trajectorie)}}" class="btn bg-warning btn-sm" title="Transporte">
-                                            <i class="fas fa-bus"></i>
+                                        <a href="{{ route('college.edit', $mobility)}}" class="btn bg-lightblue btn-sm" title="Transporte">
+                                            <i class="fas fa-edit"></i>
                                         </a>
 
-                                        @if (($trajectories->count()) - 1 == $key)
-                                            <a href="#" class="btn btn-danger btn-sm delete" trajectorie="{{ $trajectorie->id }}" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        @endif
-                                        
+                                        <a href="#" class="btn btn-danger btn-sm delete" trajectorie="{{ $trajectorie->id }}" title="Eliminar">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,5 +96,5 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/trajectorie.js') }}"></script>
+    <script src="{{ asset('js/mobility.js') }}"></script>
 @stop

@@ -18,4 +18,8 @@ class Route extends Model
     public function college(){
         return $this->belongsTo('App\Models\College','idCollege','id');
     }
+
+    public function trajectorie(){
+        return $this->hasMany('App\Models\Trajectorie');
+    }
 }

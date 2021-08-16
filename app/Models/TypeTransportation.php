@@ -14,4 +14,12 @@ class TypeTransportation extends Model
         'descripcion',
         'estado',
     ];
+
+    public function conveyance(){
+        return $this->belongsTo('App\Models\Conveyance','idConveyance','id');
+    }
+
+    public function trajectorie(){
+        return $this->hasMany('App\Models\Mobility');
+    }
 }

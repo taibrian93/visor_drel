@@ -117,6 +117,8 @@
         
         <script src="{{ mix('js/dashboard.js')}}"></script>
 
+     
+
         @include('adminlte::plugins', ['type' => 'js'])
         
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\ProvinceController;
 use App\Http\Controllers\Dashboard\CollegeController;
 use App\Http\Controllers\Dashboard\ConveyanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\MobilityController;
 use App\Http\Controllers\Dashboard\RouteController;
 use App\Http\Controllers\Dashboard\TrajectorieController;
 use App\Http\Controllers\Dashboard\TypeTransportationController;
@@ -48,16 +49,22 @@ Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboa
     Route::resource('college', CollegeController::class);
 
     Route::resource('conveyance', ConveyanceController::class);
+    
     Route::resource('typeTransportation', TypeTransportationController::class);
+    Route::post('typeTransportation/getTypeTransportation', [TypeTransportationController::class, 'getTypeTransportation'])->name('typeTransportation.getTypeTransportation');
 
     Route::resource('route', RouteController::class);
     Route::get('route/{route}/trajectorie', [RouteController::class, 'trajectorie'])->name('route.trajectorie');
     Route::post('route/getColleges', [RouteController::class, 'getColleges'])->name('route.getColleges');
 
     Route::resource('trajectorie', TrajectorieController::class);
-    //Route::post('trajectorie/create', [TrajectorieController::class, 'store'])->name('trajectorie.store');
+    Route::get('trajectorie/{trajectorie}/mobility', [TrajectorieController::class, 'mobility'])->name('trajectorie.mobility');
+    
+
+    Route::resource('mobility', MobilityController::class);
     
     Route::post('getColleges', [VisorController::class, 'getColleges']);
     Route::post('populationCenters', [VisorController::class, 'populationCenters']); 
+    Route::post('getCollege', [VisorController::class, 'getCollege']);
 
 });

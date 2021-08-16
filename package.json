@@ -26,6 +26,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
         "bootstrap": "^4.6.0",
+        "currency.js": "^2.0.4",
         "icheck-bootstrap": "^3.0.1",
         "jquery": "^3.6.0",
         "overlayscrollbars": "^1.13.1",

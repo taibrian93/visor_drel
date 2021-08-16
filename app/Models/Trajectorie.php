@@ -21,5 +21,13 @@ class Trajectorie extends Model
         'estado',
     ];
 
+    public function route(){
+        return $this->belongsTo('App\Models\Route','idRoute','id');
+    }
+
+    public function mobility(){
+        return $this->hasMany('App\Models\Mobility');
+    }
+
     
 }

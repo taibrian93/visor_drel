@@ -93,4 +93,29 @@ class VisorController extends Controller
 
         return $arrayResults;
     }
+
+    public function getCollege(Request $request){
+        $parameters = [
+            'nombreCentroEducativo as message1',
+            'direccionCentroEducativo as message2',
+            'codigoLocal as message3',
+            'codigoModular as message4',
+            'codigoUbigeoDistrito as message5',
+            'x',
+            'y',
+        ];
+        $college = College::select($parameters)->where('codigoUbigeoDistrito', 'LIKE', $request->idProvince.'%');
+        //dd($request->all());
+        if($request->filter == 1){
+            $college = $college->where('nombreCentroEducativo', 'LIKE', '%'.$request->val.'%');
+        }
+        if($request->filter == 2){
+            $college = $college->where('codigoModular', 'LIKE', '%'.$request->val.'%');
+        }
+        if($request->filter == 3){
+            $college = $college->where('codigoLocal', 'LIKE', '%'.$request->val.'%');
+        }
+                            
+        return response()->json($college->get());
+    }
 }

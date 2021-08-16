@@ -17,122 +17,80 @@
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12 px-0">
-            <div class="card collapsed-card pb-0 ">
-                <div class="card-header py-0 mx-0 bg-gray">
+
+    {{-- <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary collapsed-card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Seleccionar por Provincia
+                    </h4>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    
                 </div>
-                <div class="card-body">
-                    <div class="form-group text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="maynas" value="1601" checked="checked">
-                            <label class="form-check-label" for="maynas">MAYNAS</label>
+                <div class="card-body pb-0">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersMaynas" type="checkbox" class="form-check-input checkPopulationCenter" value="1">
+                                    <label for="checkPopulationCentersMaynas" class="form-check-label">Provincia Maynas</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersAltoAmazonas" type="checkbox" class="form-check-input checkPopulationCenter" value="2">
+                                    <label for="checkPopulationCentersAltoAmazonas" class="form-check-label">Provincia Alto Amazonas</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersLoreto" type="checkbox" class="form-check-input checkPopulationCenter" value="3">
+                                    <label for="checkPopulationCentersLoreto" class="form-check-label">Provincia Loreto</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersMariscal" type="checkbox" class="form-check-input checkPopulationCenter" value="4">
+                                    <label for="checkPopulationCentersMariscal" class="form-check-label">Provincia Masriscal Ramon Castilla</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersRequena" type="checkbox" class="form-check-input checkPopulationCenter" value="5">
+                                    <label for="checkPopulationCentersRequena" class="form-check-label">Provincia Requena</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersUcayali" type="checkbox" class="form-check-input checkPopulationCenter" value="6">
+                                    <label for="checkPopulationCentersUcayali" class="form-check-label">Provincia Ucayali</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersDatem" type="checkbox" class="form-check-input checkPopulationCenter" value="7">
+                                    <label for="checkPopulationCentersDatem" class="form-check-label">Provincia Datem del Marañon</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="checkPopulationCentersPutumayo" type="checkbox" class="form-check-input checkPopulationCenter" value="8">
+                                    <label for="checkPopulationCentersPutumayo" class="form-check-label">Provincia Putumayo</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="altoamazonas" value="1602">
-                            <label class="form-check-label" for="altoamazonas">ALTO AMAZONAS</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="loreto" value="1603">
-                            <label class="form-check-label" for="loreto">LORETO</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="mariscal" value="1604">
-                            <label class="form-check-label" for="mariscal">MARISCAL RAMÓN CASTILLA</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="requena" value="1605">
-                            <label class="form-check-label" for="requena">REQUENA</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="ucayali" value="1606">
-                            <label class="form-check-label" for="ucayali">UCAYALI</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="datem" value="1607">
-                            <label class="form-check-label" for="datem">DATEM DEL MARAÑÓN</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input provinces" type="radio" name="provincia" id="putumayo" value="1608">
-                            <label class="form-check-label" for="putumayo">PUTUMAYO</label>
-                        </div>
-                    </div>
-                    <div class="form-group mb-0">
                         
-                          
-                        <div class="input-group">
-                            
-                            <div class="input-group-prepend filtro">
-                                <select class="form-control searchFilter">
-                                    <option value="1">Nombre Colegio</option>
-                                    <option value="2">Código Modular</option>
-                                    <option value="3">Código Local</option>
-                                </select>
-                            </div>
-                    
-                            <input type="text" class="form-control searchInput" />
-                    
-                            <div class="input-group-append btnFiltro">
-                                <button class="btn btn-success searchCollege" type="button">Buscar</button>
-                                <button class="btn btn-danger deleteResultSeacrh" type="button" title="Eliminar Busqueda" {{ !isset($route->id) ? 'disabled' : '' }}>
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                    
-                        </div>
-
                     </div>
-                    
-                    
                 </div>
             </div>
+            
         </div>
-        
+
+     
     </div>
     <div class="row">
-        <div class="my-0" id="visor">
-        </div>
-    </div>
-
-    {{-- <div class="row">
-        <div class="col-md-12">
-            <div class="mt-1" id="visor">
-        </div>
-        
+        <div class="mt-1" id="visor">
     </div> --}}
-    
-    
-    
-        
 @stop
 
 @section('css')
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
     <style>
         #visor {
             width: 100%;
-            height: 60em;
-        }
-        .row {
-            margin-right: -14.5px;
-            margin-left: -13.5px;
-        }
-        .card{
-            border-radius: 0;
-            margin-bottom: 0.1%;
-        }
-        .card-header {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-        .fa-plus {
-            font-weight: 950;
-            color: white;
+            height: 44em; 
         }
     </style>
 @stop
@@ -140,7 +98,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            var minZoom = 6, maxZoom = 17, latitude = -4.6122106, longitude = -75.6017193, zoom = 6.78;
+            var minZoom = 6, maxZoom = 17, latitude = -3.7309081, longitude = -74.1528529, zoom = 6;
             var meta = $("meta[name='csrf-token']").attr("content");
             //var map = L.map('visor', { minZoom:minZoom, maxZoom:maxZoom }).setView([latitude, longitude], zoom);
 
@@ -151,7 +109,7 @@
             // set up the map and remove the default zoomControl
             var map = L.map('visor', {
                 zoomControl: false,
-                //preferCanvas: true,
+                preferCanvas: true,
             });
 
             map.setView([latitude, longitude], zoom);
@@ -254,39 +212,69 @@
             var colleges = L.layerGroup();
             var populationCenters = L.layerGroup();
 
-            $(document).on('click', '.searchCollege', function () {
-                var idProvince = $("input[name='provincia']:checked").val();
-                var inputSearch = $('.searchInput').val();
-                var dataFilter = $('.searchFilter').val();
-                var url = window.location.protocol + '//' + window.location.host +'/dashboard/getCollege';
-                let pM = ['Centro Educativo', 'Direccion', 'Cod. Local', 'Cod. Modular', 'Cod. Ubigeo'];
-                console.log(inputSearch+' '+idProvince+' '+dataFilter);
+            $(document).on('change', '.checkColleges', function() {
+                
+                let arrayCollege = [];
+            
+                let parametersMessage = ['Centro Educativo', 'Direccion', 'Cod. Local', 'Cod. Modular', 'Cod. Ubigeo'];
+                $('.checkColleges').each(function(index){
+                    if( $(this).is(':checked') ) { 
+                        arrayCollege.push($(this).val());
+                    }
+                })
+                let objCollege = Object.assign({}, arrayCollege);
+                colleges.clearLayers();
+
+                if(Object.keys(objCollege).length > 0){
+                    
+                    let url = '/dashboard/getColleges';
+                    getVisorData(url, objCollege, colleges, imgCollege, parametersMessage);
+                }
+            });
+
+            $(document).on('change', '.checkPopulationCenter', function() {
+                
+                let arrayPopulationCenter = [];
+                let parametersMessage = ['Descripcion', 'Departamento', 'Provincia', 'Distrito', 'Cod. Ubigeo'];
+                
+                $('.checkPopulationCenter').each(function(index){
+                    if( $(this).is(':checked') ) { 
+                        arrayPopulationCenter.push($(this).val());
+                    }
+                })
+                let objPopulationCenter = Object.assign({}, arrayPopulationCenter);
+                populationCenters.clearLayers();
+
+                if(Object.keys(objPopulationCenter).length > 0){
+                    
+                    let url = '/dashboard/populationCenters';
+                    getVisorData(url, objPopulationCenter, populationCenters, imgPopulationCenter, parametersMessage);
+                }
+            });
+
+            function getVisorData(url,object, layerGroup, img, pM){
                 $.ajax({
                     method: "POST",
                     url: url,               
                     dataType: "json",
                     data: {
-                        '_token': meta,
-                        'idProvince': idProvince,
-                        'filter': dataFilter,
-                        'val': inputSearch,
+                        '_token' : meta,
+                        'data' : object,
                     },
                     success: function(results) {
-                        console.log(results);
-                        //colleges.clearLayers();
+                        
                         if(results){
                             for (let i = 0; i < results.length; i++) {
-                                L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
                                 for (let j = 0; j < results[i].length; j++) {
-                                    
+                                    L.marker([results[i][j]['x'], results[i][j]['y']],{icon: img}).bindPopup(`<b>${pM[0]}</b>: ${results[i][j]['message1']}<br><b>${pM[1]}</b>: ${results[i][j]['message2']}<br><b>${pM[2]}</b>: ${results[i][j]['message3']}<br><b>${pM[3]}</b>: ${results[i][j]['message4']}<br><b>${pM[4]}</b>: ${results[i][j]['message5']}<br>`).addTo(layerGroup);
                                 }
                             }
-                            colleges.addTo(map);
+                            layerGroup.addTo(map);
                         }
                     },
                     cache: false
                 });
-            });
+            }
             
         });
         

@@ -1,3 +1,4 @@
+var meta = $("meta[name='csrf-token']").attr("content");
 $('.selectResult').select2();
 
 $(window).on('keydown', function(e) {
@@ -62,7 +63,7 @@ $('.deleteResultSeacrh').on('click', function(){
     $('.searchInput').val('');
 });
 
-var meta = $("meta[name='csrf-token']").attr("content");
+
 $('.delete').on('click', function (e) {
     e.preventDefault();
     var route = $(this).attr('route');

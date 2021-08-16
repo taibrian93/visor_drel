@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Conveyance;
+use App\Models\Mobility;
 use App\Models\PopulationCenter;
 use App\Models\Route;
 use App\Models\Trajectorie;
@@ -101,5 +103,18 @@ class TrajectorieController extends Controller
     public function destroy(Trajectorie $trajectorie)
     {
         //
+    }
+
+    public function mobility(Trajectorie $trajectorie){
+        $conveyances = Conveyance::pluck('descripcion', 'id');
+        $mobilities = Mobility::where('idTrajectorie', $trajectorie->id)->get();
+
+        //dd($conveyances);
+        return view('dashboard.mobility.create')
+                ->with([
+                    'conveyances' => $conveyances,
+                    'trajectorie' => $trajectorie,
+                    'mobilities' => $mobilities,
+                ]);
     }
 }

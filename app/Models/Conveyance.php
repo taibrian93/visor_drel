@@ -13,4 +13,8 @@ class Conveyance extends Model
         'descripcion',
         'estado',
     ];
+
+    public function typeTransportation(){
+        return $this->hasMany('App\Models\TypeTransportation');
+    }
 }
