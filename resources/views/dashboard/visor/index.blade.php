@@ -143,6 +143,13 @@
         .form-group {
             margin-bottom: 0.1rem;
         }
+        .my-label {
+            min-width: 14em;
+            /* left: -30px; */
+            text-align: center;
+            min-height: 1.2em;
+            border: 1px solid red;
+        }
     </style>
 @stop
 
@@ -289,8 +296,14 @@
                                 
                                 $('.deleteResultSeacrh').prop('disabled', false);
                                 for (let i = 0; i < results.length; i++) {
-                                    L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
-                                   
+                                    L.marker({
+                                        icon: L.divIcon({
+                                            html: "Null Island",
+                                            className: 'text-below-marker',
+                                        })  
+                                    });
+                                    var marker = L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
+                                    marker.bindTooltip(results[i]['message1'], {permanent: true, className: "my-label", offset: [11, -9] });
                                     if(results.length == i + 1) {
                                         lat = results[i]['x'];
                                         long = results[i]['y'];
@@ -300,7 +313,7 @@
                                
                                 
                                 colleges.addTo(map);
-                                map.setView([lat, long], 12);
+                                map.setView([lat, long], 13.5);
                                 
                             } else {
                                 Swal.fire({
