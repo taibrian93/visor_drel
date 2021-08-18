@@ -80,7 +80,7 @@
                     
                             <div class="input-group-append btnFiltro">
                                 <button class="btn btn-success searchCollege" type="button">Buscar</button>
-                                <button class="btn btn-danger deleteResultSeacrh" type="button" title="Eliminar Busqueda" {{ !isset($route->id) ? 'disabled' : '' }}>
+                                <button class="btn btn-danger deleteResultSeacrh" type="button" title="Eliminar Busqueda" disabled>
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
@@ -116,7 +116,7 @@
     <style>
         #visor {
             width: 100%;
-            height: 60em;
+            height: 70em;
         }
         .row {
             margin-right: -14.5px;
@@ -134,6 +134,15 @@
             font-weight: 950;
             color: white;
         }
+        .navbar{
+            padding: 0;
+        }
+        .card-body {
+            padding: 0.35rem;
+        }
+        .form-group {
+            margin-bottom: 0.1rem;
+        }
     </style>
 @stop
 
@@ -142,16 +151,9 @@
         $(document).ready(function() {
             var minZoom = 6, maxZoom = 17, latitude = -4.6122106, longitude = -75.6017193, zoom = 6.78;
             var meta = $("meta[name='csrf-token']").attr("content");
-            //var map = L.map('visor', { minZoom:minZoom, maxZoom:maxZoom }).setView([latitude, longitude], zoom);
-
-            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            // }).addTo(map);
-
-            // set up the map and remove the default zoomControl
             var map = L.map('visor', {
                 zoomControl: false,
-                //preferCanvas: true,
+                preferCanvas: true,
             });
 
             map.setView([latitude, longitude], zoom);
@@ -254,38 +256,74 @@
             var colleges = L.layerGroup();
             var populationCenters = L.layerGroup();
 
+            $(document).on('click', '.deleteResultSeacrh',function() {
+                $('.searchInput').val('');
+                $('.deleteResultSeacrh').prop('disabled', true);
+                colleges.clearLayers();
+                map.setView([latitude, longitude], zoom);
+            })
+            var lat;
+            var long;
             $(document).on('click', '.searchCollege', function () {
                 var idProvince = $("input[name='provincia']:checked").val();
                 var inputSearch = $('.searchInput').val();
                 var dataFilter = $('.searchFilter').val();
                 var url = window.location.protocol + '//' + window.location.host +'/dashboard/getCollege';
                 let pM = ['Centro Educativo', 'Direccion', 'Cod. Local', 'Cod. Modular', 'Cod. Ubigeo'];
-                console.log(inputSearch+' '+idProvince+' '+dataFilter);
-                $.ajax({
-                    method: "POST",
-                    url: url,               
-                    dataType: "json",
-                    data: {
-                        '_token': meta,
-                        'idProvince': idProvince,
-                        'filter': dataFilter,
-                        'val': inputSearch,
-                    },
-                    success: function(results) {
-                        console.log(results);
-                        colleges.clearLayers();
-                        if(results){
-                            for (let i = 0; i < results.length; i++) {
-                                L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
-                                for (let j = 0; j < results[i].length; j++) {
-                                    
+                if(inputSearch.length > 1) {
+                    $.ajax({
+                        method: "POST",
+                        url: url,               
+                        dataType: "json",
+                        data: {
+                            '_token': meta,
+                            'idProvince': idProvince,
+                            'filter': dataFilter,
+                            'val': inputSearch,
+                        },
+                        success: function(results) {
+                            
+                            if(results.length > 0){
+                                
+                                colleges.clearLayers();
+                                
+                                $('.deleteResultSeacrh').prop('disabled', false);
+                                for (let i = 0; i < results.length; i++) {
+                                    L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
+                                   
+                                    if(results.length == i + 1) {
+                                        lat = results[i]['x'];
+                                        long = results[i]['y'];
+                                        
+                                    }
                                 }
+                               
+                                
+                                colleges.addTo(map);
+                                map.setView([lat, long], 12);
+                                
+                            } else {
+                                Swal.fire({
+                                    
+                                    text: "No se encontro este registro en la base de datos",
+                                    icon: 'info',
+                                    confirmButtonColor: '#3085d6',
+                                    
+                                })
                             }
-                            colleges.addTo(map);
-                        }
-                    },
-                    cache: false
-                });
+                        },
+                        cache: false
+                    });
+                } else {
+                    Swal.fire({
+                                    
+                        text: "Tu criterio de busqueda debe tener al menos 2 caracteres!",
+                        icon: 'info',
+                        confirmButtonColor: '#3085d6',
+                        
+                    })
+                }
+                
             });
             
         });
