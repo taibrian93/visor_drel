@@ -47,7 +47,7 @@
 
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="">Distacia</label>
+                                                <label for="">Distancia</label>
                                                 <p class="border border-secondary bg-light text-dark p-2 rounded text-justify">{{ $trajectorie->distancia }} km</p>
                                             </div>
                                         </div>
