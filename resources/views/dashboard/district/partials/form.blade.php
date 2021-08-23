@@ -1,6 +1,6 @@
 <div class="form-group">
     {!! Form::label('idProvince', 'Provincia ') !!}
-    {!! Form::select('idProvince',$provinces, null, ['class' => 'form-control department', 'placeholder' => 'Seleccione Provincia...', 'style' => 'width:100%;']) !!}
+    {!! Form::select('idProvince',$provinces, null, ['class' => 'form-control province', 'placeholder' => 'Seleccione Provincia...', 'style' => 'width:100%;']) !!}
     
     @error('idProvince')
         <small class="text-danger">
@@ -11,7 +11,7 @@
 
 <div class="form-group">
     {!! Form::label('codigoUbigeo', 'Codigo Ubigeo ') !!}
-    {!! Form::text('codigoUbigeo', null, ['class' => 'form-control' . ($errors->has('codigoUbigeo') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Ubigeo', 'maxlength' => '6']) !!}
+    {!! Form::text('codigoUbigeo', null, ['class' => 'form-control codigoUbigeo' . ($errors->has('codigoUbigeo') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Ubigeo', 'maxlength' => '6']) !!}
     @error('codigoUbigeo')
         <span class="invalid-feedback">
             <strong>{{ $message }}</strong>

@@ -59,12 +59,16 @@ Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboa
 
     Route::resource('trajectorie', TrajectorieController::class);
     Route::get('trajectorie/{trajectorie}/mobility', [TrajectorieController::class, 'mobility'])->name('trajectorie.mobility');
+    Route::get('trajectorie/{trajectorie}/mobility/{mobility}', [TrajectorieController::class, 'editMobility'])->name('trajectorie.editMobility');
     
 
     Route::resource('mobility', MobilityController::class);
+    
     
     Route::post('getColleges', [VisorController::class, 'getColleges']);
     Route::post('populationCenters', [VisorController::class, 'populationCenters']); 
     Route::post('getCollege', [VisorController::class, 'getCollege']);
 
 });
+
+Route::get('dashboard/{idCollege}/route', [RouteController::class, 'getRouteCollege']);

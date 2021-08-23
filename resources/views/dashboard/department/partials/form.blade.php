@@ -1,6 +1,6 @@
 <div class="form-group">
     {!! Form::label('codigoUbigeo', 'Codigo Ubigeo ') !!}
-    {!! Form::text('codigoUbigeo', null, ['class' => 'form-control' . ($errors->has('codigoUbigeo') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Ubigeo', 'maxlength' => '2']) !!}
+    {!! Form::text('codigoUbigeo', null, ['class' => 'form-control codigoUbigeo' . ($errors->has('codigoUbigeo') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Ubigeo', 'maxlength' => '2']) !!}
     @error('codigoUbigeo')
         <span class="invalid-feedback">
             <strong>{{ $message }}</strong>

@@ -35,9 +35,5 @@
 @stop
 
 @section('js')
-    <script>
-        
-
-        
-    </script>
+    <script src="{{ asset('js/district.js') }}"></script>
 @stop

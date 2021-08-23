@@ -302,18 +302,19 @@
                                             className: 'text-below-marker',
                                         })  
                                     });
-                                    var marker = L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br>`).addTo(colleges);
+                                    var url = window.location.origin+'/dashboard/';
+                                    var marker = L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br><b>Enlace</b>: <a href="${url}${results[i]['id']}/route" target="_blank">${results[i]['message1']}</a>`).addTo(colleges);
                                     marker.bindTooltip(results[i]['message1'], {permanent: true, className: "my-label", offset: [11, -9] });
                                     if(results.length == i + 1) {
-                                        lat = results[i]['x'];
-                                        long = results[i]['y'];
+                                        lat = results[i]['x'].substring(0,4);
+                                        long = results[i]['y'].substring(0,4);
                                         
                                     }
                                 }
                                
                                 
                                 colleges.addTo(map);
-                                map.setView([lat, long], 13.5);
+                                map.setView([lat, long], 8.0);
                                 
                             } else {
                                 Swal.fire({

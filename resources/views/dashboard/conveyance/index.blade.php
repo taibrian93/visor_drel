@@ -36,9 +36,5 @@
 @stop
 
 @section('js')
-    <script>
-        
-
-        
-    </script>
+    <script src="{{ asset('js/conveyance.js') }}"></script>
 @stop

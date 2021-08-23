@@ -1,14 +1,19 @@
-$('.department').select2();$('.populationCenter').select2();
+$('.department').select2();
+
+$('.codigoUbigeo').keyup(function () {
+    this.value = (this.value + '').replace(/[^0-9]/g, '');
+});
 
 var meta = $("meta[name='csrf-token']").attr("content");
 $('.delete').on('click', function(e){
     e.preventDefault();
-    var college = $(this).attr('college');
+    var province = $(this).attr('province');
+    var url = window.location.origin+''+window.location.pathname;
     
     Swal.fire({
         title: '¿Estas seguro de realizar esta acción?',
         text: "¡Una vez eliminado, no podrá recuperar este registro!",
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -17,11 +22,11 @@ $('.delete').on('click', function(e){
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: window.location.href+"/"+college,
+                url: url+"/"+province,
                 type: 'DELETE',             
                 data: {
                     '_token' : meta,
-                    'college' : college
+                    'province' : province
                 },
                 success: function(results) {
 

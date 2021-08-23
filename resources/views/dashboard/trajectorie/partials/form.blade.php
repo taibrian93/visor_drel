@@ -22,8 +22,12 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('puntoLlegada', 'Destino Final: ') !!}
-    {!! Form::select('puntoLlegada',$destinoFinal, null, ['class' => 'form-control', 'style' => 'width: 100%;', 'disabled' => '']) !!}
+    
+    <div class="form-check form-check-inline">
+        {!! Form::label('destinoFinal', 'Destino Final: ') !!}
+        <input class="form-check-input ml-2 checkDestinoFinal" type="checkbox" id="destinoFinal" value="1">
+    </div>
+    {!! Form::select('puntoLlegada',$destinoFinal, null, ['id' => 'destinoFinal','class' => 'form-control destinoFinal', 'style' => 'width: 100%;', 'disabled' => '']) !!}
     
     @error('puntoLlegada')
         <small class="text-danger">

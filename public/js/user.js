@@ -1,15 +1,8 @@
-$('.populationCenter').select2();
-
-$('.codigoUbigeo').keyup(function () {
-    this.value = (this.value + '').replace(/[^0-9]/g, '');
-});
-
 var meta = $("meta[name='csrf-token']").attr("content");
 $('.delete').on('click', function(e){
     e.preventDefault();
-    var department = $(this).attr('department');
+    var user = $(this).attr('user');
     var url = window.location.origin+''+window.location.pathname;
-    
     Swal.fire({
         title: '¿Estas seguro de realizar esta acción?',
         text: "¡Una vez eliminado, no podrá recuperar este registro!",
@@ -22,11 +15,11 @@ $('.delete').on('click', function(e){
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: url+"/"+department,
+                url: url+"/"+user,
                 type: 'DELETE',             
                 data: {
                     '_token' : meta,
-                    'department' : department
+                    'user' : user
                 },
                 success: function(results) {
 

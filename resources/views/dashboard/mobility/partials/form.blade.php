@@ -26,7 +26,7 @@
 
 <div class="form-group">
     {!! Form::label('conveyances', 'Medio Transporte: ') !!}
-    {!! Form::select('conveyances',$conveyances, null, ['class' => 'form-control conveyances', 'placeholder' => 'Seleccione Medio Transporte...', 'style' => 'width: 100%;']) !!}
+    {!! Form::select('conveyances',$conveyances, null, ['class' => 'form-control conveyances', 'idTrajectorie' => $trajectorie->id,'placeholder' => 'Seleccione Medio Transporte...', 'style' => 'width: 100%;']) !!}
     
     @error('conveyances')
         <small class="text-danger">
@@ -37,7 +37,7 @@
 
 <div class="form-group">
     {!! Form::label('idTypeTransportation', 'Tipo Transporte: ') !!}
-    {!! Form::select('idTypeTransportation',[], null, ['class' => 'form-control idTypeTransportation', 'disabled' => '','style' => 'width: 100%;']) !!}
+    {!! Form::select('idTypeTransportation',isset($idTypeTransportation) ? $idTypeTransportation : [], null, ['class' => 'form-control idTypeTransportation','style' => 'width: 100%;', 'disabled' => isset($idTypeTransportation) ? false : true ]) !!}
     
     @error('idTypeTransportation')
         <small class="text-danger">

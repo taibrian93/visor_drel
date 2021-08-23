@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +39,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:4',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect()
+                ->route('user.index')
+                ->with([
+                    'message' => 'El registro se agrego satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -73,9 +90,33 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        $update = [
+            'name' => $request->name,
+            'emai' => $request->email,
+        ];
+
+        $pass = ($request->password != '' ? [
+            'password' => Hash::make($request->password), 
+        ] : [
+
+        ]);
+
+        $data = array_merge($update,$pass);
+
+        $user->update($data);
+
+        return redirect()
+                ->route('user.index')
+                ->with([
+                    'message' => 'El registro se edito satisfactoriamente!',
+                ]);
     }
 
     /**

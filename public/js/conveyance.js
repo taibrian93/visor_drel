@@ -1,14 +1,8 @@
-$('.populationCenter').select2();
-
-$('.codigoUbigeo').keyup(function () {
-    this.value = (this.value + '').replace(/[^0-9]/g, '');
-});
-
 var meta = $("meta[name='csrf-token']").attr("content");
 $('.delete').on('click', function(e){
     e.preventDefault();
-    var department = $(this).attr('department');
     var url = window.location.origin+''+window.location.pathname;
+    var conveyance = $(this).attr('conveyance');
     
     Swal.fire({
         title: '¿Estas seguro de realizar esta acción?',
@@ -22,11 +16,11 @@ $('.delete').on('click', function(e){
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: url+"/"+department,
+                url: url+"/"+conveyance,
                 type: 'DELETE',             
                 data: {
                     '_token' : meta,
-                    'department' : department
+                    'conveyance' : conveyance
                 },
                 success: function(results) {
 

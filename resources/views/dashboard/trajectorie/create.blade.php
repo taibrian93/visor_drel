@@ -32,10 +32,14 @@
                         @include('dashboard.trajectorie.partials.form')
                     </div>
                     <div class="card-footer d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i>
-                            Guardar
-                        </button>
+
+                        @if (!$check)
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar
+                            </button> 
+                        @endif
+                        
                     </div>
                 {!! Form::close() !!}
             </div>
@@ -55,7 +59,7 @@
                                 <th>Provincia - Centro Poblado (PP*)</th>
                                 <th>Provincia - Centro Poblado (PL*)</th>
                                 <th>Distancia</th>
-                                <th></th>
+                                <th style="width: 10%"></th>
                             </tr>
                         @endslot
 
@@ -100,5 +104,5 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/trajectorie.js') }}"></script>
+    <script src="{{ asset('js/trajectorie.js') }}"></script>
 @stop

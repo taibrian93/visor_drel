@@ -20,6 +20,6 @@ class Route extends Model
     }
 
     public function trajectorie(){
-        return $this->hasMany('App\Models\Trajectorie');
+        return $this->hasMany('App\Models\Trajectorie', 'idRoute');
     }
 }

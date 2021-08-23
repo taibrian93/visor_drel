@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/dashboard"> Inicio</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('trajectorie.index') }}"> Trayectoria</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('route.trajectorie', $trajectorie->route->id) }}"> Trayectoria</a></li>
                 <li class="breadcrumb-item active"> Editar Trayectoria</li>
             </ol>
         </div>
@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                {!! Form::model($trajectorie, ['route' => ['trajectorie.update', $trajectorie], 'method' => 'put' ]) !!}
+                {!! Form::model($mobility, ['route' => ['mobility.update', $mobility, 'idTrajectorie' => $trajectorie->id], 'method' => 'put' ]) !!}
                     <div class="card-header">
                         <h3 class="card-title">
                             Editar Trayectoria
@@ -29,7 +29,7 @@
                     </div>
                     
                     <div class="card-body">
-                        @include('dashboard.trajectorie.partials.form')
+                        @include('dashboard.mobility.partials.form')
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         
@@ -38,9 +38,21 @@
                             <i class="fas fa-edit"></i>
                             Editar
                         </button>
+
+                        {{-- <button type="submit" class="btn btn-warning ml-2">
+                            <i class="fas fa-times-circle"></i>
+                            Cancelar
+                        </button> --}}
+
+                        <a href="{{ route('trajectorie.mobility', $trajectorie)}}" class="btn bg-warning ml-2" title="Cancelar">
+                            <i class="fas fa-times-circle"></i>
+                            Cancelar
+                        </a>
                     </div>
                 {!! Form::close() !!}
             </div>
+
+            @include('dashboard.mobility.partials.table')
         </div>
     </div>
 
@@ -52,5 +64,5 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('js/trajectorie.js') }}"></script>
+    <script src="{{ asset('js/mobility.js') }}"></script>
 @stop

@@ -1,5 +1,7 @@
 var meta = $("meta[name='csrf-token']").attr("content");
 
+//$(".conveyances").prop("selectedIndex", 0).val();
+
 $('.costo').on({
     keyup: function() {
       formatCurrency($(this));
@@ -85,22 +87,29 @@ function formatCurrency(input, blur) {
 
 
 $('.conveyances').on('change', function(){
+    
     $('.idTypeTransportation').empty();
     if($(this).val() > 0){
         var urlHost = window.location.protocol + '//' + window.location.host + '/dashboard/typeTransportation/getTypeTransportation';
-        
+        var idTrajectorie = $(this).attr('idTrajectorie');
         $.ajax({
             url: urlHost,
             type: 'POST',
             data: {
                 '_token': meta,
-                'data' : $(this).val(),
+                'idConveyance' : $(this).val(),
+                'idTrajectorie': idTrajectorie,
             },
             success: function (results) {
+              if(results.length > 0){
                 $('.idTypeTransportation').prop("disabled", false);
                 for (var i = 0; i < results.length; i++){
                     $('.idTypeTransportation').append(`<option value="${results[i].id}">${results[i].descripcion}</option>`)
                 }
+              } else {
+                $('.idTypeTransportation').prop("disabled", true);
+              }
+                
             },
             cache: false
         });
@@ -109,3 +118,41 @@ $('.conveyances').on('change', function(){
     }
     
 })
+
+var meta = $("meta[name='csrf-token']").attr("content");
+$('.delete').on('click', function(e){
+    e.preventDefault();
+    var mobility = $(this).attr('mobility');
+    var url = window.location.origin+'/dashboard/mobility';
+    Swal.fire({
+        title: '¿Estas seguro de realizar esta acción?',
+        text: "¡Una vez eliminado, no podrá recuperar este registro!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar registro!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url+"/"+mobility,
+                type: 'DELETE',             
+                data: {
+                    '_token' : meta,
+                    'mobility' : mobility
+                },
+                success: function(results) {
+
+                    
+                    window.location = window.location.href;
+                 
+                    
+                    
+                },
+                cache: false
+            });
+            
+        }
+    })
+});

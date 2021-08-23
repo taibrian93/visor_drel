@@ -147,8 +147,10 @@ class RouteController extends Controller
         $puntoLlegada = PopulationCenter::select('id',DB::raw('CONCAT(provincia, " - " ,descripcion, " - ", codigoCentroPobladoMINEDU) AS descripcion'));
         
         $idPopulationCenter = Helper::getPopulationCenterId($route->idCollege);
+       
         $destinoFinal = PopulationCenter::select('id',DB::raw('CONCAT(provincia, " - " ,descripcion, " - ", codigoCentroPobladoMINEDU) AS descripcion'))->where('id', $idPopulationCenter);
-
+        $checkDestinoFinal = Trajectorie::where('idRoute', $route->id)->where('puntoLLegada', $idPopulationCenter)->get();
+        $check = sizeof($checkDestinoFinal) > 0 ? true : false;
         if($trajectories->count() > 0){
             $getLastTrajectorie = Trajectorie::where('idRoute', $route->id)->orderBy('id','desc')->take(1)->first();
             $getRows = Trajectorie::where('idRoute', $route->id)
@@ -173,9 +175,6 @@ class RouteController extends Controller
             $puntoLlegada = $puntoLlegada->orderBy('codigoUbigeoDistrito','asc');
         }
 
-        
-
-
         return view('dashboard.trajectorie.create')
                 ->with([
                     'route' => $route,
@@ -183,6 +182,24 @@ class RouteController extends Controller
                     'puntoPartida' => $puntoPartida->pluck('descripcion','id'),
                     'puntoLlegada' => $puntoLlegada->pluck('descripcion','id'),
                     'destinoFinal' => $destinoFinal->pluck('descripcion','id'),
+                    'check' => $check,
                 ]);
+    }
+
+    public function getRouteCollege($idCollege){
+
+
+        $college = College::find($idCollege);
+        if($college == null){
+            return abort(404);
+        }
+        $collegeRoutes = Route::where('idCollege', $idCollege)->with('trajectorie')->get();
+        
+        return view('dashboard.route.show')
+                ->with([
+                    'college' => $college,
+                    'collegeRoutes' => $collegeRoutes,
+                ]);
+        
     }
 }

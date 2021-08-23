@@ -50,5 +50,5 @@
 @stop
 
 @section('js')
-    
+    <script src="{{ asset('js/province.js') }}"></script>
 @stop

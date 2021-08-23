@@ -11,7 +11,7 @@
 
 <div class="form-group">
     {!! Form::label('codigoLocal', 'Codigo Local ') !!}
-    {!! Form::text('codigoLocal', null, ['class' => 'form-control' . ($errors->has('codigoLocal') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Local']) !!}
+    {!! Form::text('codigoLocal', null, ['class' => 'form-control' . ($errors->has('codigoLocal') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Local', 'maxlength' => '10']) !!}
     @error('codigoLocal')
         <span class="invalid-feedback">
             <strong>{{ $message }}</strong>
@@ -21,7 +21,7 @@
 
 <div class="form-group">
     {!! Form::label('codigoModular', 'Codigo Modular ') !!}
-    {!! Form::text('codigoModular', null, ['class' => 'form-control' . ($errors->has('codigoModular') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Modular']) !!}
+    {!! Form::text('codigoModular', null, ['class' => 'form-control' . ($errors->has('codigoModular') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Modular', 'maxlength' => '10']) !!}
     @error('codigoModular')
         <span class="invalid-feedback">
             <strong>{{ $message }}</strong>

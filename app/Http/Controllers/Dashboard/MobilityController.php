@@ -83,7 +83,21 @@ class MobilityController extends Controller
      */
     public function update(Request $request, Mobility $mobility)
     {
-        //
+        //dd($request->all());
+        $request->validate([
+            'idTrajectorie' => 'required',
+            'idTypeTransportation' => 'required',
+            'costo' => 'required',
+        ]);
+
+        $trajectorie = Trajectorie::find($request->idTrajectorie);
+        
+        $mobility->update($request->all());
+        return redirect()
+                ->route('trajectorie.mobility', $trajectorie)
+                ->with([
+                    'message' => 'El registro se editó satisfactoriamente!',
+                ]);
     }
 
     /**
@@ -92,8 +106,8 @@ class MobilityController extends Controller
      * @param  \App\Models\Mobility  $mobility
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mobility $mobility)
+    public function destroy($mobility)
     {
-        //
+        Mobility::find($mobility)->delete();
     }
 }

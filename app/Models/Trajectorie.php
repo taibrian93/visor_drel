@@ -26,7 +26,7 @@ class Trajectorie extends Model
     }
 
     public function mobility(){
-        return $this->hasMany('App\Models\Mobility');
+        return $this->hasMany('App\Models\Mobility', 'idTrajectorie');
     }
 
     

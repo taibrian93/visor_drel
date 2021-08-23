@@ -71,7 +71,7 @@ $('.delete').on('click', function (e) {
     Swal.fire({
         title: '¿Estas seguro de realizar esta acción?',
         text: "¡Una vez eliminado, no podrá recuperar este registro!",
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',

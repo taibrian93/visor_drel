@@ -96,6 +96,7 @@ class VisorController extends Controller
 
     public function getCollege(Request $request){
         $parameters = [
+            'id',
             'nombreCentroEducativo as message1',
             'direccionCentroEducativo as message2',
             'codigoLocal as message3',

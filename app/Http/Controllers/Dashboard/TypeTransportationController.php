@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Conveyance;
+use App\Models\Mobility;
 use App\Models\TypeTransportation;
 use Illuminate\Http\Request;
 
@@ -114,7 +115,9 @@ class TypeTransportationController extends Controller
     }
 
     public function getTypeTransportation(Request $request){
-        $transportation = TypeTransportation::where('idConveyance',$request->data);
+        $getArray = Mobility::where('idTrajectorie', $request->idTrajectorie)->pluck('idTypeTransportation')->toArray();
+        $transportation = TypeTransportation::where('idConveyance',$request->idConveyance)
+                                            ->whereNotIn('id', $getArray);
         return response()->json($transportation->get());
     }
 }

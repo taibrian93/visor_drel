@@ -9,6 +9,7 @@ use App\Models\Mobility;
 use App\Models\PopulationCenter;
 use App\Models\Route;
 use App\Models\Trajectorie;
+use App\Models\TypeTransportation;
 use Illuminate\Http\Request;
 
 class TrajectorieController extends Controller
@@ -100,9 +101,9 @@ class TrajectorieController extends Controller
      * @param  \App\Models\Trajectorie  $trajectorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trajectorie $trajectorie)
+    public function destroy($trajectorie)
     {
-        //
+        Trajectorie::find($trajectorie)->delete();
     }
 
     public function mobility(Trajectorie $trajectorie){
@@ -115,6 +116,29 @@ class TrajectorieController extends Controller
                     'conveyances' => $conveyances,
                     'trajectorie' => $trajectorie,
                     'mobilities' => $mobilities,
+                ]);
+    }
+
+    public function editMobility(Trajectorie $trajectorie, $idMobility){
+        $mobility = Mobility::select('mobilities.*', 'conveyances.id AS conveyances')
+                            ->leftJoin('type_transportations', 'type_transportations.id', '=', 'mobilities.idTypetransportation')
+                            ->leftJoin('conveyances', 'conveyances.id', '=', 'type_transportations.idConveyance')
+                            ->find($idMobility);
+        
+        $getArray = Mobility::where('idTrajectorie', $trajectorie->id)->pluck('idTypeTransportation')->toArray();
+        
+        $conveyances = Conveyance::pluck('descripcion', 'id');
+        $idTypeTransportation = TypeTransportation::where('idConveyance', $mobility->conveyances)->whereNotIn('id', $getArray)->pluck('descripcion', 'id');
+        $mobilities = Mobility::where('idTrajectorie', $trajectorie->id)->get();
+
+        //dd($conveyances);
+        return view('dashboard.mobility.edit')
+                ->with([
+                    'conveyances' => $conveyances,
+                    'trajectorie' => $trajectorie,
+                    'mobilities' => $mobilities,
+                    'mobility' => $mobility,
+                    'idTypeTransportation' => $idTypeTransportation,
                 ]);
     }
 }

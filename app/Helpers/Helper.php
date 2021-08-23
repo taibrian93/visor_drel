@@ -11,9 +11,10 @@ class Helper
     {
         $populationCenter = PopulationCenter::find($id);
         $provincia = $populationCenter->provincia;
-        $centroPolado = $populationCenter->descripcion;
+        $distrito = $populationCenter->distrito;
+        $centroPoblado = $populationCenter->descripcion;
 
-        return $provincia.' - '.$centroPolado;
+        return $provincia.' - '.$distrito.' - '.$centroPoblado;
     }
 
     public static function getPopulationCenterId($id){
