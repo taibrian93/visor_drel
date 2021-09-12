@@ -48,7 +48,7 @@ class RoleController extends Controller
         ]);
 
         $role->permissions()->attach($request->permissions);
-        return redirect()->route('dashboard.roles.index')->with('info', 'El rol se creo satisfactoriamente');
+        return redirect()->route('roles.index')->with('info', 'El rol se creo satisfactoriamente');
     }
 
     /**
@@ -97,7 +97,7 @@ class RoleController extends Controller
 
         $role->permissions()->sync($request->permissions);
 
-        return redirect()->route('dashboard.roles.edit', $role);
+        return redirect()->route('roles.edit', $role);
     }
 
     /**
