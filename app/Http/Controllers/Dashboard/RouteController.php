@@ -133,7 +133,7 @@ class RouteController extends Controller
 
     public function getColleges(Request $request){
         if(strlen($request->data) > 1){
-            $colleges = College::select('provinces.descripcion as province', 'districts.descripcion as district', 'population_centers.descripcion as population_center','colleges.id', 'colleges.nombreCentroEducativo')
+            $colleges = College::select('provinces.descripcion as province', 'districts.descripcion as district', 'population_centers.descripcion as population_center','colleges.id', 'colleges.nombreCentroEducativo', 'colleges.codigoModular')
                         ->leftJoin('population_centers', 'colleges.codigoCentroPobladoMINEDU', '=', 'population_centers.codigoCentroPobladoMINEDU')
                         ->leftJoin('districts', 'population_centers.codigoUbigeoDistrito', '=', 'districts.codigoUbigeo')
                         ->leftJoin('provinces', 'districts.idProvince', '=', 'provinces.id');

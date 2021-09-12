@@ -45,7 +45,7 @@ $('.searchCollege',).on('click', function () {
                     $('.selectResult').empty();
 
                     for (var i = 0; i < results.length; i++){
-                        $('.selectResult').append(`<option value="${results[i].id}">${results[i].province} - ${results[i].district} -  ${results[i].population_center} - ${results[i].nombreCentroEducativo}</option>`)
+                        $('.selectResult').append(`<option value="${results[i].id}">${results[i].province} - ${results[i].district} -  ${results[i].population_center} - ${results[i].nombreCentroEducativo} (${results[i].codigoModular})</option>`)
                     }
                 } else{
                     Swal.fire({
