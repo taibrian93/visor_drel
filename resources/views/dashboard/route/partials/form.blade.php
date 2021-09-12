@@ -31,7 +31,7 @@
     
 
 <div class="form-group">
-    {!! Form::label('idCollege', 'Lista Colegios (Provincia - Distrito - Centro Poblado - Centro Educativo)') !!}
+    {!! Form::label('idCollege', 'Lista Colegios (Provincia - Distrito - Centro Poblado - Centro Educativo (Código Modular) )') !!}
     <select class="form-control selectResultCopy" disabled>
         <option>Seleccione Colegio...</option>
     </select>
