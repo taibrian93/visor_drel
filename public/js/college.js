@@ -37,4 +37,54 @@ $('.delete').on('click', function(e){
             
         }
     })
-});  
+});
+
+$('.province').on('change', function(){
+    $('.district').empty();
+    $('.populationCenter').empty();
+    var urlHost = window.location.protocol + '//' + window.location.host + '/dashboard/getDistrict';
+    var val = $(this).val();
+    $('.district').append(`<option>Cargando...</option>`)
+    $.ajax({
+        url: urlHost,
+        type: 'POST',
+        data: {
+            '_token': meta,
+            'codigoUbigeo' : val,
+        },
+        success: function (results) {
+            console.log(results);
+            $('.district').empty();
+            $('.district').append(`<option>Seleccione Distrito...</option>`)
+            for (var i = 0; i < results.length; i++){
+                $('.district').append(`<option value="${results[i].codigoUbigeo}">${results[i].descripcion} - ${results[i].codigoUbigeo}</option>`)
+            }
+            
+        },
+        cache: false
+    });
+});
+
+$('.district').on('change', function(){
+    $('.populationCenter').empty();
+    var urlHost = window.location.protocol + '//' + window.location.host + '/dashboard/getPopulationCenter';
+    var val = $(this).val();
+    $('.populationCenter').append(`<option>Cargando...</option>`)
+    $.ajax({
+        url: urlHost,
+        type: 'POST',
+        data: {
+            '_token': meta,
+            'codigoUbigeo' : val,
+        },
+        success: function (results) {
+            console.log(results)
+            $('.populationCenter').empty();
+            $('.populationCenter').append(`<option>Seleccione Centro Poblado...</option>`)
+            for (var i = 0; i < results.length; i++){
+                $('.populationCenter').append(`<option value="${results[i].codigoCentroPobladoMINEDU}">${results[i].descripcion} - ${results[i].codigoCentroPobladoMINEDU}</option>`)
+            }
+        },
+        cache: false
+    });
+});

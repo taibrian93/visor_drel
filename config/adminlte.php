@@ -231,91 +231,129 @@ return [
         [
             'text'        => ' Inicio',
             'url'         => '/dashboard',
+            'can'        => 'Leer',
             'icon'        => 'fas fa-home',
         ],
         ['header' => 'VISOR'],
         [
             'text'        => ' Visor',
             'url'         => 'dashboard/visor',
+            'can'        => 'Visor',
             'icon'        => 'fas fa-globe-americas',
         ],
-        ['header' => 'USUARIO'],
+        [
+            'header' => 'USUARIO',
+            'can'    => 'Leer',
+        ],
         [
             'text' => 'Usuario',
+            'can'  => 'Leer',
             'icon' =>  'fas fa-user',
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'route'  => 'user.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/user*'],
                 ],
                 [
-                    'text' => 'Roles',
-                    //'route'  => 'user.index',
-                    'active'    => ['dashboard/user*'],
+                    'text'        => 'Roles',
+                    'route'         => 'roles.index',
+                    'can'        => 'Leer',
+                    //'icon'        => 'fas fa-fw fa-users-cog',
+                    // 'can'        => 'Roles',
+                    'active'    => ['dashboard/roles*'],
                 ],
             ],
+            
         ],
-        ['header' => 'PARAMETROS'],
+        [
+            'header' => 'PARAMETROS',
+            'can'    => 'Leer',
+        ],
         [
             'text'    => 'Parametros',
+            'can'     => 'Leer',
             'icon'    => 'fas fa-clipboard-list',
             'submenu' => [
                 [
                     'text' => 'Departamento',
                     'route'  => 'department.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/department*'],
                 ],
                 [
                     'text' => 'Provincia',
                     'route'  => 'province.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/province*'],
                 ],
                 [
                     'text' => 'Distrito',
                     'route'  => 'district.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/district*'],
                 ],
                 [
                     'text' => 'Centro Poblado',
                     'route'  => 'populationCenter.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/populationCenter*'],
                 ],
                 [
                     'text' => 'Medio Transporte',
                     'route'  => 'conveyance.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/conveyance*'],
                 ],
                 [
                     'text' => 'Tipo Medio Transporte',
                     'route'  => 'typeTransportation.index',
+                    'can'        => 'Leer',
                     'active'    => ['dashboard/typeTransportation*'],
                 ],
             ],
         ],
-        ['header' => 'COLEGIO'],
+        [
+            'header' => 'COLEGIO',
+            'can'    => 'Leer',
+        ],
         [
             'text'    => 'Colegio',
             'icon'    => 'fas fa-university',
+            'can'        => 'Leer',
             'submenu' => [
                 [
                     'text' => 'Colegio',
                     'route' => 'college.index',
+                    'can'   => 'Leer',
                     'active'    => ['dashboard/college*'],
                 ],
             ],
         ],
-        ['header' => 'FORMULARIO'],
+        [
+            'header' => 'FORMULARIO',
+            'can'    => 'Leer',
+        ],
         [
             'text'    => 'Formulario',
+            'can'    => 'Leer',
             'icon'    => 'fas fa-file-alt',
             'submenu' => [
                 [
                     'text' => 'Ruta',
                     'route' => 'route.index',
+                    
                     'active'    => ['dashboard/routes*'],
                 ],
             ],
+        ],
+        ['header' => 'account_settings'],
+        [
+            'text' => 'profile',
+            'route' => 'user.profile',
+            'icon' => 'fas fa-fw fa-user',
+            'active'    => ['dashboard/profile*'],
         ],
     ],
 

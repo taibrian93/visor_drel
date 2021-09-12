@@ -34,17 +34,27 @@ $('.searchCollege',).on('click', function () {
                 'data': input,
             },
             success: function (results) {
+                console.log(results);
+                if(results.length > 0){
+                    $('.selectResultCopy ').addClass('d-none');
+                    //$('.searchInput').addClass('d-none');
+                    //$('.selectResult').removeClass('d-none');
+                    $('.select2').removeClass('d-none');
+                    $('.btn-route').prop("disabled", false);
+                    $('.deleteResultSeacrh').prop("disabled", false);
+                    $('.selectResult').empty();
 
-                $('.selectResultCopy ').addClass('d-none');
-                //$('.searchInput').addClass('d-none');
-                //$('.selectResult').removeClass('d-none');
-                $('.select2').removeClass('d-none');
-                $('.btn-route').prop("disabled", false);
-                $('.deleteResultSeacrh').prop("disabled", false);
-                $('.selectResult').empty();
-
-                for (var i = 0; i < results.length; i++){
-                    $('.selectResult').append(`<option value="${results[i].id}">${results[i].nombreCentroEducativo}</option>`)
+                    for (var i = 0; i < results.length; i++){
+                        $('.selectResult').append(`<option value="${results[i].id}">${results[i].province} - ${results[i].district} -  ${results[i].population_center} - ${results[i].nombreCentroEducativo}</option>`)
+                    }
+                } else{
+                    Swal.fire({
+                                    
+                        text: "¡No se encontró este registro en la base de datos!",
+                        icon: 'info',
+                        confirmButtonColor: '#3085d6',
+                        
+                    })
                 }
             },
             cache: false

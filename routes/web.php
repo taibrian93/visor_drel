@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\CollegeController;
 use App\Http\Controllers\Dashboard\ConveyanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\MobilityController;
+use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\RouteController;
 use App\Http\Controllers\Dashboard\TrajectorieController;
 use App\Http\Controllers\Dashboard\TypeTransportationController;
@@ -37,14 +38,25 @@ Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboa
 
     Route::get('/visor', function () {
         return view('dashboard.visor.index');
-    });
+    })->name('visor');
+
+    Route::resource('roles', RoleController::class)->names('roles');
 
     Route::resource('user', UserController::class);
+
+    Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::put('profile/update/{user}', [UserController::class, 'updateProfile'])->name('user.updateProfile');
 
     Route::resource('department', DepartmentController::class);
     Route::resource('province', ProvinceController::class);
     Route::resource('district', DistrictController::class);
+
+    Route::post('getDistrict', [DistrictController::class, 'getDistrict'])->name('district.getDistrict');
+
     Route::resource('populationCenter', PopulaTionCenterController::class);
+
+    Route::post('getPopulationCenter', [PopulaTionCenterController::class, 'getPopulationCenter'])->name('populationCenter.getPopulationCenter');
+    Route::post('getPopulationCenterDestination', [PopulaTionCenterController::class, 'getPopulationCenterDestination'])->name('populationCenter.getPopulationCenterDestination');
 
     Route::resource('college', CollegeController::class);
 

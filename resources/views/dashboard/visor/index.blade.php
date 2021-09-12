@@ -178,7 +178,7 @@
             var imgPopulationCenter = L.icon({
                 iconUrl: '/img/centro.png',
                 iconSize:     [15, 18], // size of the icon
-                //iconAnchor:   [26, 26], // point of the icon which will correspond to marker's location
+                iconAnchor:   [26, 26], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-12, -11] // point from which the popup should open relative to the iconAnchor
             });
             // custom zoom bar control that includes a Zoom Home function
@@ -267,6 +267,7 @@
                 $('.searchInput').val('');
                 $('.deleteResultSeacrh').prop('disabled', true);
                 colleges.clearLayers();
+                populationCenters.clearLayers();
                 map.setView([latitude, longitude], zoom);
             })
             var lat;
@@ -277,6 +278,8 @@
                 var dataFilter = $('.searchFilter').val();
                 var url = window.location.protocol + '//' + window.location.host +'/dashboard/getCollege';
                 let pM = ['Centro Educativo', 'Direccion', 'Cod. Local', 'Cod. Modular', 'Cod. Ubigeo'];
+                //parameters message Population Center
+                let pMPC = ['Centro Poblado'];
                 if(inputSearch.length > 1) {
                     $.ajax({
                         method: "POST",
@@ -289,42 +292,80 @@
                             'val': inputSearch,
                         },
                         success: function(results) {
-                            
-                            if(results.length > 0){
-                                
-                                colleges.clearLayers();
-                                
-                                $('.deleteResultSeacrh').prop('disabled', false);
-                                for (let i = 0; i < results.length; i++) {
-                                    L.marker({
-                                        icon: L.divIcon({
-                                            html: "Null Island",
-                                            className: 'text-below-marker',
-                                        })  
-                                    });
-                                    var url = window.location.origin+'/dashboard/';
-                                    var marker = L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br><b>Enlace</b>: <a href="${url}${results[i]['id']}/route" target="_blank">${results[i]['message1']}</a>`).addTo(colleges);
-                                    marker.bindTooltip(results[i]['message1'], {permanent: true, className: "my-label", offset: [11, -9] });
-                                    if(results.length == i + 1) {
-                                        lat = results[i]['x'].substring(0,4);
-                                        long = results[i]['y'].substring(0,4);
+                            //console.log(results);
+                            if(dataFilter == 1 || dataFilter == 3){
+                                if(results.length > 0){
+                                    
+                                    colleges.clearLayers();
+                                    populationCenters.clearLayers();
+                                    
+                                    $('.deleteResultSeacrh').prop('disabled', false);
+                                    for (let i = 0; i < results.length; i++) {
+                                        L.marker({
+                                            icon: L.divIcon({
+                                                html: "Null Island",
+                                                className: 'text-below-marker',
+                                            })  
+                                        });
+                                        var url = window.location.origin+'/dashboard/';
+                                        var marker = L.marker([results[i]['x'], results[i]['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results[i]['message1']}<br><b>${pM[1]}</b>: ${results[i]['message2']}<br><b>${pM[2]}</b>: ${results[i]['message3']}<br><b>${pM[3]}</b>: ${results[i]['message4']}<br><b>${pM[4]}</b>: ${results[i]['message5']}<br><b>Enlace</b>: <a href="${url}${results[i]['id']}/route" target="_blank">${results[i]['message1']}</a>`).addTo(colleges);
+                                        var markerPC = L.marker([results[i]['x_populationCenter'], results[i]['y_populationCenter']],{icon: imgPopulationCenter}).bindPopup(`<b>${pMPC[0]}</b>: ${results[i]['centroPoblado']}`).addTo(populationCenters);
                                         
+                                        if(results.length == i + 1) {
+                                            lat = results[i]['x'].substring(0,4);
+                                            long = results[i]['y'].substring(0,4);
+                                        }
                                     }
+
+                                    colleges.addTo(map);
+                                    populationCenters.addTo(map);
+                                    map.setView([lat, long], 8.0);
+                                    
+                                } else {
+                                    Swal.fire({
+                                        text: "No se encontró este registro en la base de datos",
+                                        icon: 'info',
+                                        confirmButtonColor: '#3085d6',
+                                    })
                                 }
-                               
-                                
-                                colleges.addTo(map);
-                                map.setView([lat, long], 8.0);
-                                
-                            } else {
-                                Swal.fire({
+                            } else if(dataFilter == 2) {
+                                if(results.length == 0) {
                                     
-                                    text: "No se encontro este registro en la base de datos",
-                                    icon: 'info',
-                                    confirmButtonColor: '#3085d6',
+                                    Swal.fire({
+                                        text: "No se encontró este Centro Educativo en la provincia seleccionada",
+                                        icon: 'info',
+                                        confirmButtonColor: '#3085d6',
+                                    })
+                                } else {
+                                    console.log(results);
+
+                                    colleges.clearLayers();
+                                    populationCenters.clearLayers();
                                     
-                                })
+                                    $('.deleteResultSeacrh').prop('disabled', false);
+                                    for (let i = 0; i < results.routes.length; i++) {
+                                        for (let j = 0; j < results.routes[i].length; j++) {
+                                            var url = window.location.origin+'/dashboard/';
+                                        
+                                            var markerPC_PuntoPartida = L.marker([results.routes[i][j]['x_puntoPartida'], results.routes[i][j]['y_puntoPartida']],{icon: imgPopulationCenter}).bindPopup(`<b>Centro Poblado</b>: ${results.routes[i][j]['centro_poblado_PP']}`).addTo(populationCenters);
+                                            
+                                        }
+
+                                    }
+                                    var url = window.location.origin+'/dashboard/';
+                                    
+                                    var marker = L.marker([results['x'], results['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results['message1']}<br><b>${pM[1]}</b>: ${results['message2']}<br><b>${pM[2]}</b>: ${results['message3']}<br><b>${pM[3]}</b>: ${results['message4']}<br><b>${pM[4]}</b>: ${results['message5']}<br><b>Enlace</b>: <a href="${url}${results['id']}/route" target="_blank">${results['message1']}</a>`).addTo(colleges);
+                                    var markerPC_DFinal = L.marker([results['x_populationCenter'], results['y_populationCenter']],{icon: imgPopulationCenter}).bindPopup(`<b>${pMPC[0]}</b>: ${results['centroPoblado']}`).addTo(populationCenters)
+                                    lat = results['x'].substring(0,4);
+                                    long = results['y'].substring(0,4);
+                                    colleges.addTo(map);
+                                    populationCenters.addTo(map);
+                                    var polyline = L.polyline([], {color: 'red'}).addTo(map);
+                                    map.setView([lat, long], 8.0);
+                                }
+                                
                             }
+                            
                         },
                         cache: false
                     });

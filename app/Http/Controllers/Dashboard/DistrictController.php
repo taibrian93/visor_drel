@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class DistrictController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:Crear')->only('create','store');
+        $this->middleware('can:Leer')->only('index', 'show');
+        $this->middleware('can:Editar')->only('edit', 'update');
+        $this->middleware('can:Eliminar')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -114,5 +121,10 @@ class DistrictController extends Controller
     public function destroy($district)
     {
         District::find($district)->delete();
+    }
+
+    public function getDistrict(Request $request){
+        $district = District::where('codigoUbigeo', 'LIKE', $request->codigoUbigeo.'%');
+        return response()->json($district->get());
     }
 }

@@ -9,6 +9,27 @@
     @enderror
 </div>
 
+<div class="form-group">
+    {!! Form::label('province', 'Provincia: ') !!}
+    {!! Form::select('province',$province, null, ['class' => 'form-control province', 'style' => 'width: 100%;']) !!}
+    
+    @error('province')
+        <small class="text-danger">
+            <strong>{{ $message }}</strong>
+        </small>    
+    @enderror
+</div>
+
+<div class="form-group">
+    {!! Form::label('district', 'Distrito: ') !!}
+    {!! Form::select('district', $district, null, ['class' => 'form-control district', 'style' => 'width: 100%;', 'routeIdCollege' => $route->idCollege, 'routeId' => $route->id]) !!}
+    
+    @error('district')
+        <small class="text-danger">
+            <strong>{{ $message }}</strong>
+        </small>    
+    @enderror
+</div>
 
 <div class="form-group">
     {!! Form::label('puntoLlegada', 'Punto Llegada: ') !!}

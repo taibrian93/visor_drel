@@ -15,4 +15,12 @@ class District extends Model
         'descripcion',
         'estado',
     ];
+
+    public function population_center(){
+        return $this->hasMany('App\Models\PopulationCenter', 'codigoUbigeoDistrito', 'codigoUbigeo');
+    }
+
+    public function province(){
+        return $this->belongsTo('App\Models\Province','idProvince','id');
+    }
 }

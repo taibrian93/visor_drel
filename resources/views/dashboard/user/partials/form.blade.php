@@ -1,3 +1,13 @@
+<div>
+    <h3 class="h3">Lista de roles</h3>
+    @foreach ($roles as $role)
+        <label for="">
+            {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+            {{ $role->name }}
+        </label>
+    @endforeach
+</div>
+
 <div class="form-group">
     {!! Form::label('name', 'Nombre ') !!}
     {!! Form::text('name', null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) !!}

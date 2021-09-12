@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\College;
 use App\Models\PopulationCenter;
+use App\Models\Route;
+use App\Models\Trajectorie;
 use Illuminate\Http\Request;
 
 class VisorController extends Controller
@@ -96,27 +98,74 @@ class VisorController extends Controller
 
     public function getCollege(Request $request){
         $parameters = [
-            'id',
-            'nombreCentroEducativo as message1',
-            'direccionCentroEducativo as message2',
-            'codigoLocal as message3',
-            'codigoModular as message4',
-            'codigoUbigeoDistrito as message5',
-            'x',
-            'y',
+            'colleges.id',
+            'colleges.nombreCentroEducativo as message1',
+            'colleges.direccionCentroEducativo as message2',
+            'colleges.codigoLocal as message3',
+            'colleges.codigoModular as message4',
+            'colleges.codigoUbigeoDistrito as message5',
+            'colleges.x',
+            'colleges.y',
+            'colleges.codigoCentroPobladoMINEDU',
+            'population_centers.x as x_populationCenter',
+            'population_centers.y as y_populationCenter',
+            'population_centers.descripcion as centroPoblado',
         ];
-        $college = College::select($parameters)->where('codigoUbigeoDistrito', 'LIKE', $request->idProvince.'%');
-        //dd($request->all());
+        
+        $colleges = College::select($parameters)
+                    ->leftJoin('population_centers', 'colleges.codigoCentroPobladoMINEDU', '=', 'population_centers.codigoCentroPobladoMINEDU')
+                    ->where('colleges.codigoUbigeoDistrito', 'LIKE', $request->idProvince.'%');
+        
         if($request->filter == 1){
-            $college = $college->where('nombreCentroEducativo', 'LIKE', '%'.$request->val.'%');
+            $colleges = $colleges->where('colleges.nombreCentroEducativo', 'LIKE', '%'.$request->val.'%')->get();
         }
         if($request->filter == 2){
-            $college = $college->where('codigoModular', 'LIKE', '%'.$request->val.'%');
+            $colleges = $colleges->where('colleges.codigoModular', 'LIKE', '%'.$request->val.'%')->first();
+
+            if($colleges == null){
+                $colleges = [];
+            } else{
+
+                $routes = Route::select('routes.id')
+                                ->leftJoin('colleges', 'routes.idCollege', '=', 'colleges.id')
+                                ->where('colleges.codigoModular', '=', $request->val)
+                                ->get();
+
+                $colleges = $colleges->toArray();
+                $colleges['routes'] = [];
+                
+                foreach ($routes as $key1 =>  $route) {
+                    $trajectories = Trajectorie::where('idRoute', '=', $route->id)->get()->toArray();
+                    // dd($trajectories);
+                    foreach ($trajectories as $key2 => $trajectorie){
+                        $trajectoriePuntoPartida = PopulationCenter::select('x as x_puntoPartida', 'y as y_puntoPartida', 'descripcion as centro_poblado_PP')->where('id', '=', $trajectorie["puntoPartida"])->first()->toArray();
+                        //$trajectoriePuntoLlegada = PopulationCenter::select('x as x_puntoLlegada', 'y as y_puntoLlegada')->where('id', '=', $trajectorie["puntoLlegada"])->first()->toArray();
+                        //array_push($trajectories[$key2], $trajectoriePuntoPartida['x_puntoPartida'], $trajectoriePuntoPartida['y_puntoPartida'], $trajectoriePuntoLlegada['x_puntoLlegada'], $trajectoriePuntoLlegada['y_puntoLlegada']);
+                        $trajectories[$key2] += [ "x_puntoPartida" => $trajectoriePuntoPartida['x_puntoPartida'] ];
+                        $trajectories[$key2] += [ "y_puntoPartida" => $trajectoriePuntoPartida['y_puntoPartida'] ];
+                        $trajectories[$key2] += [ "centro_poblado_PP" => $trajectoriePuntoPartida['centro_poblado_PP'] ];
+                        // $trajectories[$key2] += [ "x_puntoLlegada" => $trajectoriePuntoLlegada['x_puntoLlegada'] ];
+                        // $trajectories[$key2] += [ "y_puntoLlegada" => $trajectoriePuntoLlegada['y_puntoLlegada'] ];
+                        // $trajectories = array_merge($arrayTrajectories[$key2],$trajectoriePuntoPartida, $trajectoriePuntoLlegada);
+                        //array_push($trajectories[$key2], $trajectoriePuntoPartida, $trajectoriePuntoLlegada);
+                    }
+                    $colleges['routes'][$key1] = $trajectories;
+                } 
+            }
+            //dd($colleges);
+
         }
         if($request->filter == 3){
-            $college = $college->where('codigoLocal', 'LIKE', '%'.$request->val.'%');
+            $colleges = $colleges->where('colleges.codigoLocal', 'LIKE', '%'.$request->val.'%')->get();
         }
+
+        // foreach($colleges->get() as $college){
+        //     $populationCenter = PopulationCenter::where()->first;
+        //     // echo response()->json($colleges->get());
+        // }
+
+        // $array = [];
                             
-        return response()->json($college->get());
+        return response()->json($colleges);
     }
 }

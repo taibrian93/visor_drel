@@ -25,4 +25,8 @@ class College extends Model
         return $this->hasMany('App\Models\Route');
     }
 
+    public function population_center(){
+        return $this->belongsTo('App\Models\PopulationCenter','codigoCentroPobladoMINEDU','codigoCentroPobladoMINEDU');
+    }
+
 }

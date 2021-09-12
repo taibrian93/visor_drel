@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\PopulationCenter;
+use App\Models\Trajectorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PopulationCenterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:Crear')->only('create','store');
+        $this->middleware('can:Leer')->only('index', 'show');
+        $this->middleware('can:Editar')->only('edit', 'update');
+        $this->middleware('can:Eliminar')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -118,5 +128,35 @@ class PopulationCenterController extends Controller
     public function destroy($populationCenter)
     {
         PopulationCenter::find($populationCenter)->delete();
+    }
+
+    public function getPopulationCenter(Request $request){
+        $populationCenter = PopulationCenter::where('codigoUbigeoDistrito', 'LIKE', $request->codigoUbigeo.'%');
+        return response()->json($populationCenter->get());
+    }
+
+    public function getPopulationCenterDestination(Request $request){
+        
+        $idPopulationCenter = Helper::getPopulationCenterId($request->routeIdCollege);
+
+        //$populationCenter = PopulationCenter::where('codigoUbigeoDistrito', 'LIKE', $request->codigoUbigeo.'%');
+
+        $populationCenter = PopulationCenter::select('provinces.descripcion as province','districts.descripcion as district','population_centers.*',DB::raw('CONCAT(provinces.descripcion, " - ", districts.descripcion, " - " ,population_centers.descripcion, " - ", population_centers.codigoCentroPobladoMINEDU) AS descripcion'))
+                        ->leftJoin('districts', 'population_centers.codigoUbigeoDistrito', '=', 'districts.codigoUbigeo')
+                        ->leftJoin('provinces', 'districts.idProvince', '=', 'provinces.id');
+
+        $getRows = Trajectorie::where('idRoute', $request->routeId)
+                        ->pluck('puntoLlegada')
+                        ->toArray();
+
+        array_push($getRows, $idPopulationCenter);
+
+        $populationCenter = $populationCenter->where('districts.codigoUbigeo', 'LIKE', $request->codigoUbigeo.'%')
+                        ->whereNotIn('population_centers.id', $getRows)
+                        ->whereNotIn('population_centers.codigoCentroPobladoMINEDU', ['114683'])
+                        ->orderBy('population_centers.codigoUbigeoDistrito','asc');
+
+
+        return response()->json($populationCenter->get());
     }
 }

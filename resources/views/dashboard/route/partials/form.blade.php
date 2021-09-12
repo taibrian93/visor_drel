@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="">Bsucar Colegio </label>
+    <label for="">Buscar Colegio </label>
     <div class="input-group">
         
         <div class="input-group-prepend filtro">
@@ -31,7 +31,7 @@
     
 
 <div class="form-group">
-    {!! Form::label('idCollege', 'Lista Colegios ') !!}
+    {!! Form::label('idCollege', 'Lista Colegios (Provincia - Distrito - Centro Poblado - Centro Educativo)') !!}
     <select class="form-control selectResultCopy" disabled>
         <option>Seleccione Colegio...</option>
     </select>

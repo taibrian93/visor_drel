@@ -17,4 +17,12 @@ class PopulationCenter extends Model
         'descripcion',
         'estado',
     ];
+
+    public function college(){
+        return $this->hasMany('App\Models\College', 'codigoCentroPobladoMINEDU', 'codigoCentroPobladoMINEDU');
+    }
+
+    public function district(){
+        return $this->belongsTo('App\Models\District','codigoUbigeoDistrito','codigoUbigeo');
+    }
 }
