@@ -14,10 +14,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('can:Crear')->only('create','store');
-        // $this->middleware('can:Leer')->only('index', 'show');
-        // $this->middleware('can:Editar')->only('edit', 'update');
-        // $this->middleware('can:Eliminar')->only('destroy');
+        $this->middleware('can:Crear')->only('create','store');
+        $this->middleware('can:Leer')->only('index', 'show');
+        $this->middleware('can:Editar')->only('edit', 'update');
+        $this->middleware('can:Eliminar')->only('destroy');
     }
     /**
      * Display a listing of the resource.
