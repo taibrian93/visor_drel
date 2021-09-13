@@ -178,7 +178,7 @@
             var imgPopulationCenter = L.icon({
                 iconUrl: '/img/centro.png',
                 iconSize:     [15, 18], // size of the icon
-                iconAnchor:   [26, 26], // point of the icon which will correspond to marker's location
+                //iconAnchor:   [26, 26], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-12, -11] // point from which the popup should open relative to the iconAnchor
             });
             // custom zoom bar control that includes a Zoom Home function
@@ -330,7 +330,6 @@
                                 }
                             } else if(dataFilter == 2) {
                                 if(results.length == 0) {
-                                    
                                     Swal.fire({
                                         text: "No se encontró este Centro Educativo en la provincia seleccionada",
                                         icon: 'info',
@@ -338,7 +337,7 @@
                                     })
                                 } else {
                                     console.log(results);
-
+                                    var array = [];
                                     colleges.clearLayers();
                                     populationCenters.clearLayers();
                                     
@@ -346,21 +345,25 @@
                                     for (let i = 0; i < results.routes.length; i++) {
                                         for (let j = 0; j < results.routes[i].length; j++) {
                                             var url = window.location.origin+'/dashboard/';
-                                        
+                    
                                             var markerPC_PuntoPartida = L.marker([results.routes[i][j]['x_puntoPartida'], results.routes[i][j]['y_puntoPartida']],{icon: imgPopulationCenter}).bindPopup(`<b>Centro Poblado</b>: ${results.routes[i][j]['centro_poblado_PP']}`).addTo(populationCenters);
-                                            
+                                        
+                                            array.push([ results.routes[i][j]['x_puntoPartida'],  results.routes[i][j]['y_puntoPartida']]);
                                         }
 
                                     }
                                     var url = window.location.origin+'/dashboard/';
-                                    
+                                    array.push([results['x_populationCenter'], results['y_populationCenter']]);
+                                    console.log(array);
                                     var marker = L.marker([results['x'], results['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results['message1']}<br><b>${pM[1]}</b>: ${results['message2']}<br><b>${pM[2]}</b>: ${results['message3']}<br><b>${pM[3]}</b>: ${results['message4']}<br><b>${pM[4]}</b>: ${results['message5']}<br><b>Enlace</b>: <a href="${url}${results['id']}/route" target="_blank">${results['message1']}</a>`).addTo(colleges);
                                     var markerPC_DFinal = L.marker([results['x_populationCenter'], results['y_populationCenter']],{icon: imgPopulationCenter}).bindPopup(`<b>${pMPC[0]}</b>: ${results['centroPoblado']}`).addTo(populationCenters)
                                     lat = results['x'].substring(0,4);
                                     long = results['y'].substring(0,4);
                                     colleges.addTo(map);
                                     populationCenters.addTo(map);
-                                    var polyline = L.polyline([], {color: 'red'}).addTo(map);
+                                    
+                                    var polyline = L.polyline(array, {color: 'red'}).addTo(map);
+                                    
                                     map.setView([lat, long], 8.0);
                                 }
                                 
