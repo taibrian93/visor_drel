@@ -354,6 +354,7 @@
                                     }
                                     var url = window.location.origin+'/dashboard/';
                                     array.push([results['x_populationCenter'], results['y_populationCenter']]);
+                                    array.push([results['x'], results['y']]);
                                     console.log(array);
                                     var marker = L.marker([results['x'], results['y']],{icon: imgCollege}).bindPopup(`<b>${pM[0]}</b>: ${results['message1']}<br><b>${pM[1]}</b>: ${results['message2']}<br><b>${pM[2]}</b>: ${results['message3']}<br><b>${pM[3]}</b>: ${results['message4']}<br><b>${pM[4]}</b>: ${results['message5']}<br><b>Enlace</b>: <a href="${url}${results['id']}/route" target="_blank">${results['message1']}</a>`).addTo(colleges);
                                     var markerPC_DFinal = L.marker([results['x_populationCenter'], results['y_populationCenter']],{icon: imgPopulationCenter}).bindPopup(`<b>${pMPC[0]}</b>: ${results['centroPoblado']}`).addTo(populationCenters)
@@ -361,8 +362,8 @@
                                     long = results['y'].substring(0,4);
                                     colleges.addTo(map);
                                     populationCenters.addTo(map);
-                                    
-                                    var polyline = L.polyline(array, {color: 'red'}).addTo(map);
+                                    var randomColor = ["Red", "Green", "Blue"];
+                                    var polyline = L.polyline(array, {color: randomColor[Math.floor(Math.random()*randomColor.length)]}).addTo(map);
                                     
                                     map.setView([lat, long], 8.0);
                                 }
