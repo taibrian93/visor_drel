@@ -2,7 +2,7 @@ Proyecto DREL
 
 1. Clonar repositorio:
     <br>
-    git clone https://github.com/taibrian93/practicalaravel.git
+    git clone https://github.com/taibrian93/visordrel.git
 2. Correr el siguiente comando:
     <br>
     composer install
